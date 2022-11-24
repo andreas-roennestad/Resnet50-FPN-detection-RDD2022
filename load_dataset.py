@@ -1,8 +1,7 @@
 import collections
 import os
 from xml.etree.ElementTree import Element as ET_Element
-
-from torchvision.datasets import VisionDataset
+import torchvision
 try:
     from defusedxml.ElementTree import parse as ET_parse
 except ImportError:
@@ -14,7 +13,7 @@ from PIL import Image
 
 
 
-class RoadCracksDetection(VisionDataset):
+class RoadCracksDetection(torchvision.datasets.VisionDataset):
 
     def __init__(
         self,
