@@ -1,6 +1,5 @@
 import collections
 import os
-from typing_extensions import TypeAlias
 from xml.etree.ElementTree import Element as ET_Element
 import torchvision
 try:
