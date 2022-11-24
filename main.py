@@ -22,7 +22,7 @@ root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
 num_classes = 4
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 8
+batch_size = 32
 
 # Number of epochs to train for
 num_epochs = 15
