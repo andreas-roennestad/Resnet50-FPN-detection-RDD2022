@@ -83,7 +83,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         children = list(node)
         if children:
             def_dic: Dict[str, Any] = collections.defaultdict(list)
-            for dc in map(RoadCracksDetection.parse_voc_xml, children):
+            for dc in map(RoadCracksDetection.parse_xml, children):
                 for ind, v in dc.items():
                     def_dic[ind].append(v)
             if node.tag == "annotation":
