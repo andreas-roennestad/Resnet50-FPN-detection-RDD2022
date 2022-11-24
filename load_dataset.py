@@ -59,11 +59,12 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             target = self.target_transform(target)
         
         if not len(target)==0: 
-            return super(RoadCracksDetection, self).__getitem__(index)
+            return img, target
         else:
             del self.data[index]
             return self.__getitem__(index)
-        return img, target   
+
+        #return img, target   
 
     def __len__(self) -> int:
         return len(self.images)   
