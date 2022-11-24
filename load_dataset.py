@@ -80,11 +80,11 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
                     obj_class = 3 # alligator crack
                 case 'D40':
                     obj_class = 4 # pothole
-            out_dict['labels'].append(obj_class)
-            out_dict['boxes'].append(np.array([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))]))
-            out_dict['image_id'].append(int(in_dict['filename'][10:].replace('.jpg', '')))
-            out_dict['area'].append((int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
-            out_dict['iscrowd'].append(False)
+            np.append(out_dict['labels'], obj_class)
+            np.append(out_dict['boxes'], np.array([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))]))
+            np.append(out_dict['image_id'], int(in_dict['filename'][10:].replace('.jpg', '')))
+            np.append(out_dict['area'], (int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
+            np.append(out_dict['iscrowd'], False)
         print("Out dict", out_dict)
         return out_dict
     @staticmethod
