@@ -73,7 +73,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         for obj in in_dict['object']:
             out_dict['labels'].append(obj['name'])
             out_dict['boxes'].append([obj['bndbox']['xmin'], obj['bndbox']['ymin'], obj['bndbox']['xmax'], obj['bndbox']['ymax']])
-            out_dict['image_id'].append(int(in_dict['filename'][:10].replace('.jpg', '')))
+            out_dict['image_id'].append(int(in_dict['filename'][10:].replace('.jpg', '')))
             out_dict['area'].append((obj['bndbox']['xmax']-obj['bndbox']['xmin'])*(obj['bndbox']['ymax']- obj['bndbox']['ymin']))
             out_dict['iscrowd'].append(False)
         print(in_dict)
