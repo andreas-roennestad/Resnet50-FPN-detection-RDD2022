@@ -44,18 +44,19 @@ data_transforms = {
         #transforms.RandomResizedCrop(input_size),
         #transforms.RandomHorizontalFlip(),
         transforms.Resize(input_size),
-        transforms.ToTensor(),
+        transforms.PILToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
-    'val': transforms.Compose([
+    'target': transforms.Compose([
         #transforms.Resize(input_size),
         #transforms.CenterCrop(input_size),
+        transforms.Resize(input_size),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
 }
 
-dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=None, transforms=None)
+dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['target'], target_transform=None, transforms=None)
 
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4)
