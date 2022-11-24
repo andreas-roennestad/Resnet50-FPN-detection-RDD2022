@@ -20,7 +20,7 @@ def set_parameter_requires_grad(model, feature_extracting):
         for param in model.parameters():
             param.requires_grad = False
 
-def train_model(model, dataloaders, criterion, optimizer, num_epochs=25):
+def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
     since = time.time()
 
     val_acc_history = []
@@ -43,7 +43,7 @@ def train_model(model, dataloaders, criterion, optimizer, num_epochs=25):
             running_corrects = 0
 
             # Iterate over data.
-            for inputs, labels in dataloaders[phase]:
+            for inputs, labels in dataloader:
                 inputs = inputs.to(device)
                 labels = labels.to(device)
 
@@ -70,8 +70,8 @@ def train_model(model, dataloaders, criterion, optimizer, num_epochs=25):
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
 
-            epoch_loss = running_loss / len(dataloaders[phase].dataset)
-            epoch_acc = running_corrects.double() / len(dataloaders[phase].dataset)
+            epoch_loss = running_loss / len(dataloader[phase].dataset)
+            epoch_acc = running_corrects.double() / len(dataloader[phase].dataset)
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
 
