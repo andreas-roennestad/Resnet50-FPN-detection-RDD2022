@@ -27,7 +27,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
 
 
         imgs_dir = os.path.join(root, image_set,"images")
-        split_f = os.path.join(splits_dir, image_set.rstrip("\n") + ".txt")
 
         file_names_imgs = os.listdir(imgs_dir)
         
@@ -35,8 +34,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         file_names_targets = os.listdir(targets_dir)
 
         self.images = file_names_imgs
-        self.targets = target_dir
-        print(imgs_names)
+        self.targets = file_names_targets
+        print(self.images)
 
         """image_dir = os.path.join(root, image_set, "images")
         self.images = [os.path.join(image_dir, x + ".jpg") for x in file_names]
