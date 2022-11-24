@@ -24,4 +24,5 @@ root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
 dataset = RoadCracksDetection(root_dir)
 
 item = dataset.__getitem__(0)
+print(item[0])
 print(item[1])
