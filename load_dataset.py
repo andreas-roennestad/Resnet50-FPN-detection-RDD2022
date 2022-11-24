@@ -50,7 +50,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             tuple: (image, target) where target is a dictionary of the XML tree.
         """
         img = Image.open(self.images[index]).convert("RGB")
-        target = self.parse_voc_xml(ET_parse(self.targets[index]).getroot())
+        target = self.parse_dict(self.parse_xml(ET_parse(self.targets[index]).getroot()))
         print(target)
 
         
@@ -65,9 +65,19 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def __len__(self) -> int:
         return len(self.images)   
 
+    def parse_dict(xml_dict: dict) -> dict[str, Any]:
+        in_dict = xml_dict['annotation']
+        out_dict: Dict[str, Any] = {}
+
+        for obj in in_dict['object']:
+            out_dict['labels'].append(obj['name'])
+            out_dict['boxes'].append([obj['bndbox']['xmin'], obj['bndbox']['ymin'], obj['bndbox']['xmax'], obj['bndbox']['ymax']])
+            out_dict['image_id'].append(int(obj['filename'][:10].replace('.jpg', '')))
+            out_dict['area'].append((obj['bndbox']['xmax']-obj['bndbox']['xmin'])*(obj['bndbox']['ymax']- obj['bndbox']['ymin']))
+            out_dict['iscrowd'].append(False)
 
     @staticmethod
-    def parse_voc_xml(node: ET_Element) -> Dict[str, Any]:
+    def parse_xml(node: ET_Element) -> Dict[str, Any]:
         xml_dict: Dict[str, Any] = {}
         children = list(node)
         if children:
