@@ -53,7 +53,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         xml = self.parse_xml(ET_parse(self.targets[index]).getroot())
         target = self.parse_dict(xml)
 
-        print(xml)
         print("###")
         print(target)
 
@@ -72,7 +71,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
         out_dict = {'labels': [], 'boxes': [], 'image_id': [], 'area': [], 'iscrowd': []}
-
+        print(in_dict)
         for obj in in_dict['object']:
             out_dict['labels'].append(obj['name'])
             out_dict['boxes'].append([obj['bndbox']['xmin'], obj['bndbox']['ymin'], obj['bndbox']['xmax'], obj['bndbox']['ymax']])
