@@ -8,7 +8,7 @@ import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train_model
 from torchvision.models import ResNet18_Weights
-
+from torch.nn.utils.rnn import pad_sequence
 
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -59,8 +59,18 @@ data_transforms = {
 dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['target'], target_transform=None, transforms=None)
 
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=1)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=1, collate_fn=custom_collate)
 
+
+def custom_collate(data): 
+    inputs = [torch.tensor(d['tokenized_input']) for d in data]
+    labels = [d['label'] for d in data]    
+    inputs = pad_sequence(inputs, batch_first=True)
+    labels = torch.tensor(labels)   
+    return {
+        'ims': inputs, 
+        'label': labels
+    }
 # Detect if we have a GPU available
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
