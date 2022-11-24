@@ -86,6 +86,6 @@ else:
 optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9)
 
 criterion = nn.CrossEntropyLoss()
-
+print("hei")
 # Train and evaluate
 model_ft, hist = train_model(model_ft, dataloader, criterion, optimizer_ft, num_epochs=num_epochs)
