@@ -51,6 +51,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         """
         img = Image.open(self.images[index]).convert("RGB")
         target = self.parse_dict(self.parse_xml(ET_parse(self.targets[index]).getroot()))
+        
         print(target)
 
         
@@ -65,8 +66,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def __len__(self) -> int:
         return len(self.images)   
 
-    def parse_dict(xml_dict: dict) -> dict[str, Any]:
-        in_dict = xml_dict['annotation']
+    def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
+        in_dict = xml_out_dict['annotation']
         out_dict: Dict[str, Any] = {}
 
         for obj in in_dict['object']:
