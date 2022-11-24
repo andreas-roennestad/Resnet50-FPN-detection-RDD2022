@@ -51,6 +51,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         """
         img = Image.open(self.images[index]).convert("RGB")
         target = self.parse_voc_xml(ET_parse(self.targets[index]).getroot())
+        print(target)
 
         
         
@@ -82,6 +83,5 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             if not children:
                 xml_dict[node.tag] = text
 
-        print(xml_dict)
         return xml_dict  
 
