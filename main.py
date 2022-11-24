@@ -43,7 +43,7 @@ data_transforms = {
     'train': transforms.Compose([
         #transforms.RandomResizedCrop(input_size),
         #transforms.RandomHorizontalFlip(),
-        transforms.Resize(input_size),
+        #transforms.Resize(input_size),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
@@ -56,7 +56,7 @@ data_transforms = {
     ]),
 }
 
-dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['target'], target_transform=None, transforms=None)
+dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=data_transforms['target'], transforms=None)
 def custom_collate(data): 
     inputs = [dataset[0] for _ in data]
     labels = [dataset[1]  for _ in data] 
