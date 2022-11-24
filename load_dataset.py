@@ -7,7 +7,7 @@ try:
 except ImportError:
     from xml.etree.ElementTree import parse as ET_parse
 from typing import Any, Callable, Dict, Optional, Tuple
-
+import numpy as np
 from PIL import Image
 
 
@@ -69,7 +69,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
-        out_dict = {'labels': [], 'boxes': [], 'image_id': [], 'area': [], 'iscrowd': []}
+        out_dict = {'labels': np.array(), 'boxes': np.array(), 'image_id': np.array(), 'area': np.array(), 'iscrowd': np.array()}
         for obj in in_dict['object']:
             match obj['name']:
                 case 'D00':
@@ -81,7 +81,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
                 case 'D40':
                     obj_class = 4 # pothole
             out_dict['labels'].append(obj_class)
-            out_dict['boxes'].append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
+            out_dict['boxes'].append(np.array([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))]))
             out_dict['image_id'].append(int(in_dict['filename'][10:].replace('.jpg', '')))
             out_dict['area'].append((int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
             out_dict['iscrowd'].append(False)
