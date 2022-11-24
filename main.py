@@ -60,15 +60,16 @@ dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['targ
 def custom_collate(data): 
     inputs = [dataset[0] for _ in data]
     labels = [dataset[1]  for _ in data] 
-    print(inputs, labels)
     try:
         inputs = pad_sequence(inputs[0:], batch_first=True)
     except TypeError:
         print(inputs)
+        exit()
     try:
         labels = torch.tensor(labels)  
     except RuntimeError:
         print(labels) 
+        exit()
     return {
         'imgs': inputs, 
         'label': labels
