@@ -77,6 +77,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             out_dict['area'].append((obj['bndbox']['xmax']-obj['bndbox']['xmin'])*(obj['bndbox']['ymax']- obj['bndbox']['ymin']))
             out_dict['iscrowd'].append(False)
 
+        return out_dict
     @staticmethod
     def parse_xml(node: ET_Element) -> Dict[str, Any]:
         xml_dict: Dict[str, Any] = {}
