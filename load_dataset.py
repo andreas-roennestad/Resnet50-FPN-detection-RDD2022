@@ -26,21 +26,24 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         super().__init__(root, transforms, transform, target_transform) 
 
 
-        splits_dir = os.path.join(root, image_set,"images")
+        imgs_dir = os.path.join(root, image_set,"images")
         split_f = os.path.join(splits_dir, image_set.rstrip("\n") + ".txt")
 
+        file_names_imgs = os.listdir(imgs_dir)
+        
+        targets_dir = os.path.join(root, image_set,"annotations","xmls")
+        file_names_targets = os.listdir(targets_dir)
 
-        with open(os.path.join(split_f)) as f:
-            file_names = [x.strip() for x in f.readlines()]
+        self.images = file_names_imgs
+        self.targets = target_dir
+        print(imgs_names)
 
-        print(file_names)
-
-        image_dir = os.path.join(root, image_set, "images")
+        """image_dir = os.path.join(root, image_set, "images")
         self.images = [os.path.join(image_dir, x + ".jpg") for x in file_names]
 
         if image_set=="train":
             target_dir = os.path.join(root, image_set, "annotations", "xmls")
-            self.targets = [os.path.join(target_dir, x + ".xml") for x in file_names]
+            self.targets = [os.path.join(target_dir, x + ".xml") for x in file_names]"""
 
         assert len(self.images) == len(self.targets)
 
