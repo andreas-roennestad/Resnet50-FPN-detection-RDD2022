@@ -7,7 +7,7 @@ import torch.optim as optim
 import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train_model
-
+from torchvision.models import ResNet18_Weights
 
 
 print("PyTorch Version: ",torch.__version__)
@@ -31,7 +31,7 @@ num_epochs = 15
 #   when True we only update the reshaped layer params
 feature_extract = True
 
-model_ft = models.resnet18(pretrained=True)
+model_ft = models.resnet18(weights=ResNet18_Weights.DEFAULT)
 set_parameter_requires_grad(model_ft, feature_extract)
 num_ftrs = model_ft.fc.in_features
 model_ft.fc = nn.Linear(num_ftrs, num_classes)
@@ -52,7 +52,7 @@ data_transforms = {
     ]),
 }
 
-dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=data_transforms['train'])
+dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=data_transforms['train'], transforms=None)
 
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4)
