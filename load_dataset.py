@@ -50,7 +50,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             tuple: (image, target) where target is a dictionary of the XML tree.
         """
         img = Image.open(self.images[index]).convert("RGB")
-        print(list(img.getdata()))
         target = self.parse_voc_xml(ET_parse(self.targets[index]).getroot())
 
         if self.transforms is not None:
