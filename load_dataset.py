@@ -84,9 +84,10 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
                     obj_class = 4 # pothole
             out_dict['labels'].append(obj_class)
             out_dict['boxes'].append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
-            out_dict['image_id'].append(int(in_dict['filename'][10:].replace('.jpg', '')))
             out_dict['area'].append((int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
             out_dict['iscrowd'].append(False)
+        out_dict['image_id'] = int(in_dict['filename'][10:].replace('.jpg', ''))
+
         return out_dict
     @staticmethod
     def parse_xml(node: ET_Element) -> Dict[str, Any]:
