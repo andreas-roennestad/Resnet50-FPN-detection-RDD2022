@@ -58,11 +58,12 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         if self.target_transform is not None:
             target = self.target_transform(target)
         
-        try: 
+        if not len(target)==0: 
             return super(RoadCracksDetection, self).__getitem__(index)
-        except Exception as e:
-            print(e)
-        #return img, target   
+        else:
+            del self.data[index]
+            return self.__getitem__(index)
+        return img, target   
 
     def __len__(self) -> int:
         return len(self.images)   
@@ -81,7 +82,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
                 case 'D40':
                     obj_class = 4 # pothole
             out_dict['labels'].append(obj_class)
-            out_dict['boxes'].append(np.array([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))]))
+            out_dict['boxes'].append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
             out_dict['image_id'].append(int(in_dict['filename'][10:].replace('.jpg', '')))
             out_dict['area'].append((int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
             out_dict['iscrowd'].append(False)
