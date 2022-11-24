@@ -81,5 +81,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             text = node.text.strip()
             if not children:
                 xml_dict[node.tag] = text
+
+        print(xml_dict)
         return xml_dict  
 
