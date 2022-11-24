@@ -60,14 +60,14 @@ dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['targ
 def custom_collate(data): 
     inputs = [dataset[0] for _ in data]
     labels = [dataset[1]  for _ in data]  
-    inputs = pad_sequence(inputs, batch_first=True)
+    inputs = pad_sequence(inputs[1:], batch_first=True)
     labels = torch.tensor(labels)   
     return {
         'imgs': inputs, 
         'label': labels
     }
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=1, collate_fn=custom_collate)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=custom_collate)
 
 
 # Detect if we have a GPU available
