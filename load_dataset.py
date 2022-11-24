@@ -70,6 +70,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
         out_dict = {'labels': np.array([]), 'boxes': np.array([]), 'image_id': np.array([]), 'area': np.array([]), 'iscrowd': np.array([])}
+        print(out_dict)
         for obj in in_dict['object']:
             match obj['name']:
                 case 'D00':
@@ -85,7 +86,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             np.append(out_dict['image_id'], int(in_dict['filename'][10:].replace('.jpg', '')))
             np.append(out_dict['area'], (int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
             np.append(out_dict['iscrowd'], False)
-        print("Out dict", out_dict)
         return out_dict
     @staticmethod
     def parse_xml(node: ET_Element) -> Dict[str, Any]:
