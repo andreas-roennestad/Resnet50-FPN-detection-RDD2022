@@ -71,12 +71,20 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         in_dict = xml_out_dict['annotation']
         out_dict = {'labels': [], 'boxes': [], 'image_id': [], 'area': [], 'iscrowd': []}
         for obj in in_dict['object']:
-            out_dict['labels'].append(obj['name'])
+            match obj['name']:
+                case 'D00':
+                    obj_class = 1 # longitudinal crack
+                case 'D10':
+                    obj_class = 2 # transverse crack
+                case 'D20':
+                    obj_class = 3 # alligator crack
+                case 'D40':
+                    obj_class = 4 # pothole
+            out_dict['labels'].append(obj_class)
             out_dict['boxes'].append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
             out_dict['image_id'].append(int(in_dict['filename'][10:].replace('.jpg', '')))
             out_dict['area'].append((int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
             out_dict['iscrowd'].append(False)
-        print(in_dict)
         print("Out dict", out_dict)
         return out_dict
     @staticmethod
