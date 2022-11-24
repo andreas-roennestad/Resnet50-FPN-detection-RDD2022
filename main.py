@@ -43,6 +43,7 @@ data_transforms = {
     'train': transforms.Compose([
         #transforms.RandomResizedCrop(input_size),
         #transforms.RandomHorizontalFlip(),
+        transforms.Resize(input_size),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
@@ -88,6 +89,5 @@ else:
 optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9)
 
 criterion = nn.CrossEntropyLoss()
-print("hei")
 # Train and evaluate
 model_ft, hist = train_model(model_ft, dataloader, criterion, optimizer_ft, num_epochs=num_epochs)

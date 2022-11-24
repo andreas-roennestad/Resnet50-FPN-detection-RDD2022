@@ -52,9 +52,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         xml = self.parse_xml(ET_parse(self.targets[index]).getroot())
         target = self.parse_dict(xml)
 
-        print("###")
-        print(target)
-
         
         
         if self.transform is not None:
