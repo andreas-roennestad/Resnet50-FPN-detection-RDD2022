@@ -32,7 +32,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         targets_dir = os.path.join(root, image_set,"annotations","xmls")
         file_names_targets = [os.path.join(targets_dir, file) for file in sorted(os.listdir(targets_dir))]
-        print(file_names_targets)
         self.images = file_names_imgs
         self.targets = file_names_targets
 
@@ -71,14 +70,14 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
         out_dict = {'labels': [], 'boxes': [], 'image_id': [], 'area': [], 'iscrowd': []}
-        print(in_dict)
         for obj in in_dict['object']:
             out_dict['labels'].append(obj['name'])
             out_dict['boxes'].append([obj['bndbox']['xmin'], obj['bndbox']['ymin'], obj['bndbox']['xmax'], obj['bndbox']['ymax']])
             out_dict['image_id'].append(int(obj['filename'][:10].replace('.jpg', '')))
             out_dict['area'].append((obj['bndbox']['xmax']-obj['bndbox']['xmin'])*(obj['bndbox']['ymax']- obj['bndbox']['ymin']))
             out_dict['iscrowd'].append(False)
-
+        print(in_dict)
+        print("Out dict", out_dict)
         return out_dict
     @staticmethod
     def parse_xml(node: ET_Element) -> Dict[str, Any]:
