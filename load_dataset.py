@@ -109,7 +109,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
                     obj_class = 3 # pothole
 
             labels.append(obj_class)
-            boxes.append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
+            boxes.append([int(float(in_dict['object'][i]['bndbox']['xmin'])), int(float(in_dict['object'][i]['bndbox']['ymin'])),
+             int(float(in_dict['object'][i]['bndbox']['xmax'])), int(float(in_dict['object'][i]['bndbox']['ymax']))])
         
         labels = torch.as_tensor(labels, dtype=torch.int64)
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
