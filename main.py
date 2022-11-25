@@ -57,23 +57,16 @@ data_transforms = {
 }
 
 dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=None, transforms=None)
-def custom_collate(data): 
-    inputs = [dataset[0] for _ in data]
-    labels = [dataset[1]  for _ in data] 
-    try:
-        inputs = pad_sequence(inputs[0:], batch_first=True)
-    except TypeError:
-        print("typeerror")
-        exit() 
-    try:
-        labels = torch.tensor(labels)  
-    except RuntimeError:
-        print("runtimeerror") 
-        exit()
-    return {
-        'imgs': inputs, 
-        'label': labels
-    }
+def custom_collate(batch): 
+    images = list()
+    targets = list()
+    for b in batch:
+        images.append(b[0])
+        targets.append(b[1])
+
+    images = torch.stack(images, dim=0)
+    
+    return images, targets
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=custom_collate)
 
