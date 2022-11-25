@@ -59,14 +59,18 @@ data_transforms = {
 dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=None, transforms=None)
 def custom_collate(batch): 
     images = list()
-    targets = list()
+    boxes = list()
+    labels = list()
+    difficulties = list()
     for b in batch:
         images.append(b[0])
-        targets.append(b[1])
-
-    images = torch.cat(images, dim=0)
+        boxes.append(b[1])
+        labels.append(b[2])
+        difficulties.append(b[3])
     
-    return images, targets
+    images = pad_sequence(images[1:], batch_first=True)
+    
+    
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=custom_collate)
 
