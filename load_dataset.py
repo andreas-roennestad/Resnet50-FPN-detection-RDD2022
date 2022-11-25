@@ -82,7 +82,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             targets.append(b[1])
         
         try:
-            images = torch.FloatTensor(np.asarray(pad_sequence(images, batch_first=True).astype('float64')))
+            images = torch.FloatTensor(np.asarray(pad_sequence(images, batch_first=True)))
         except RuntimeError:
             print(images)
 
