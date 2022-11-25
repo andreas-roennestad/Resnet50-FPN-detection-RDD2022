@@ -86,8 +86,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         except RuntimeError:
             print(images)
 
-        images = torch.stack(images)
-        targets = torch.stack(targets)
+        #images = torch.stack(images)
+        #targets = torch.stack(targets)
 
         return images, targets
 
