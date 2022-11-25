@@ -74,6 +74,7 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
                     
                     outputs = model(inputs)
                     print(outputs)
+                    print(labels)
                     loss = criterion(outputs, labels)
 
                     _, preds = torch.max(outputs, 1)
