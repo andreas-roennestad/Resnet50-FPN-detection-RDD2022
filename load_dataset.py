@@ -86,8 +86,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         except RuntimeError:
             print(images)
         
-        targets = np.asarray(targets, dtype)
-        targets = torch.as_tensor(targets)
         #images = torch.stack(images)
         #targets = torch.stack(targets)
 
@@ -95,28 +93,32 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
-        out_dict = {'labels': [], 'boxes': [], 'image_id': [], 'area': [], 'iscrowd': []}
+        out_dict = {'labels': [], 'boxes': [], 'image_id': []}
         num_objs = len(in_dict['object'])
+        boxes = []
+        labels = []
 
         for obj in in_dict['object']:
             match obj['name']:
                 case 'D00':
                     obj_class = 0 # longitudinal crack
                 case 'D10':
-                    obj_class = 2 # transverse crack
+                    obj_class = 1 # transverse crack
                 case 'D20':
                     obj_class = 2 # alligator crack
                 case 'D40':
                     obj_class = 3 # pothole
 
-            out_dict['labels'].append(obj_class)
-            out_dict['boxes'].append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
-            out_dict['area'].append((int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
+            labels.append(obj_class)
+            boxes.append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
         
-        iscrowd = torch.zeros((num_objs,), dtype=torch.int64)
-        out_dict['image_id'] = int(in_dict['filename'].replace('.jpg', '')[-6:])
-        out_dict['iscrowd'] = False
+        labels = torch.as_tensor(out_dict['labels'], dtype=torch.int64)
+        boxes = torch.as_tensor(boxes, dtype=torch.float32)
+        image_id = torch.tensor(int(in_dict['filename'].replace('.jpg', '')[-6:]), dtype=torch.int64)
 
+        out_dict['image_id'] = image_id
+        out_dict['boxes'] = boxes
+        out_dict['labels'] = labels
         #print(out_dict['image_id'], in_dict['filename'])
 
         return out_dict
@@ -136,6 +138,5 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             if not children:
                 xml_dict[node.tag] = text
 
-        print(xml_dict)
         return xml_dict  
 
