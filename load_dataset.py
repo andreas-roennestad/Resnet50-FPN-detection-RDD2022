@@ -86,8 +86,10 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         except RuntimeError:
             print(images)
 
+        images = torch.stack(images)
+        targets = torch.stack(targets)
 
-        return torch.tensor(images), torch.tensor(targets)
+        return images, targets
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
