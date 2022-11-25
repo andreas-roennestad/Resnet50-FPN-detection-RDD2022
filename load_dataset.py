@@ -101,8 +101,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
         out_dict = {'labels': [], 'boxes': []}#, 'image_id': []}
-        if len(in_dict['object']):
-            in_dict['object'] = [in_dict['object']]
+        
         boxes = []
         labels = []
         for i in range(len(in_dict['object'])):
@@ -142,7 +141,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             for dc in map(RoadCracksDetection.parse_xml, children):
                 for ind, v in dc.items():
                     def_dic[ind].append(v)
-            
+            if node.tag == "annotation":
+                def_dic["object"] = [def_dic["object"]]
             xml_dict = {node.tag: {ind: v[0] if len(v) == 1 else v for ind, v in def_dic.items()}}
         if node.text:
             text = node.text.strip()
