@@ -49,10 +49,10 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             tuple: (image, target) where target is a dictionary of the XML tree.
         """
         img = Image.open(self.images[index]).convert("RGB")
-
-        
-        xml = self.parse_xml(ET_parse(self.targets[index]).getroot())
-        target = self.parse_dict(xml)
+        target=None
+        if self.image_set == 'train':
+            xml = self.parse_xml(ET_parse(self.targets[index]).getroot())
+            target = self.parse_dict(xml)
 
         
         if self.transforms is not None:
@@ -62,7 +62,10 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         
         if not len(target)==0: 
-            return img, target
+            if self.image_set=='train':
+                return img, target
+            else:
+                return img
         else:
             print("dritt", self.data[index])
             del self.data[index]
@@ -78,7 +81,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         targets = list()
         for b in batch:
             images.append(b[0])
-            targets.append(b[1])
+            if self.image_set=='train':
+                targets.append(b[1])
         
         try:
             images = torch.FloatTensor(np.asarray(pad_sequence(images, batch_first=True)))
@@ -87,8 +91,10 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         #images = torch.stack(images)
         #targets = torch.stack(targets)
-
-        return images, targets
+        if self.image_set=='train':
+            return images, targets
+        else:
+            return images
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
