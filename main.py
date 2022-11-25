@@ -64,7 +64,7 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
     
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=False, num_workers=0)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=0, shuffle=False, num_workers=0)
 """dataloader, class_names = create_dataloaders(train_dir=root_dir,
                                                                     transform=data_transforms, # perform same data transforms on our own data as the pretrained model
                                                                     batch_size=32,
