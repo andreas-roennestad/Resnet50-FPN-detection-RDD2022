@@ -36,7 +36,7 @@ print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 set_parameter_requires_grad(model_ft, feature_extract)
 #print(model_ft)
 
-print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
+#print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
 
 num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
@@ -64,7 +64,7 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
     
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0,collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0)
 
 
 

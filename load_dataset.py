@@ -73,7 +73,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def __len__(self) -> int:
         return len(self.images) 
 
-    def collate_fn(self, batch): 
+    """def collate_fn(self, batch): 
         images = list()
         targets = list()
         for b in batch:
@@ -88,7 +88,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         #images = torch.stack(images)
         #targets = torch.stack(targets)
 
-        return images, targets
+        return images, targets"""
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
