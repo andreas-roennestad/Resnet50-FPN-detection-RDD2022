@@ -64,7 +64,7 @@ def custom_collate(batch):
         images.append(b[0])
         targets.append(b[1])
 
-    images = torch.stack(images, dim=0)
+    images = torch.cat(images, dim=0)
     
     return images, targets
 # Create training and validation dataloaders
