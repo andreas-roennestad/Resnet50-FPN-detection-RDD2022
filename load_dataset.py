@@ -92,7 +92,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
-        out_dict = {'labels': [], 'boxes': [], 'image_id': []}
+        out_dict = {'labels': [], 'boxes': []}#, 'image_id': []}
         num_objs = len(in_dict['object'])
         boxes = []
         labels = []
@@ -113,9 +113,9 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         labels = torch.as_tensor(out_dict['labels'], dtype=torch.int64)
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
-        image_id = torch.tensor(int(in_dict['filename'].replace('.jpg', '')[-6:]), dtype=torch.int64)
+        #image_id = torch.tensor(int(in_dict['filename'].replace('.jpg', '')[-6:]), dtype=torch.int64)
 
-        out_dict['image_id'] = image_id
+        #out_dict['image_id'] = image_id
         out_dict['boxes'] = boxes
         out_dict['labels'] = labels
         #print(out_dict['image_id'], in_dict['filename'])
