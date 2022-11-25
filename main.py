@@ -34,6 +34,7 @@ model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_F
 print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)
+print(model_ft.fc)
 num_ftrs = model_ft.fc.in_features
 model_ft.fc = nn.Linear(num_ftrs, num_classes)
 input_size = 224 #MODIFY
