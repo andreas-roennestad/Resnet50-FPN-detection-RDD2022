@@ -96,7 +96,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         num_objs = len(in_dict['object'])
         boxes = []
         labels = []
-
+        print(in_dict)
         for obj in in_dict['object']:
             match obj['name']:
                 case 'D00':
