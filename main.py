@@ -8,7 +8,6 @@ import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train_model
 from torchvision.models import ResNet18_Weights
-from torch.nn.utils.rnn import pad_sequence
 
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -57,22 +56,12 @@ data_transforms = {
 }
 
 dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=None, transforms=None)
-def custom_collate(batch): 
-    images = list()
-    boxes = list()
-    labels = list()
-    difficulties = list()
-    for b in batch:
-        images.append(b[0])
-        boxes.append(b[1])
-        labels.append(b[2])
-        difficulties.append(b[3])
-    
-    images = pad_sequence(images[1:], batch_first=True)
+
     
     
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=custom_collate)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
+
 
 
 # Detect if we have a GPU available

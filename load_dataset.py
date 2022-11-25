@@ -62,6 +62,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         if self.target_transform is not None:
             target = self.target_transform(target)
         
+        
         if not len(target)==0: 
             return img, target
         else:
