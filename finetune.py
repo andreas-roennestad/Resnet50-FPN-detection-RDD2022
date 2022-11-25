@@ -74,7 +74,7 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
                 with torch.set_grad_enabled(phase == 'train'):
                     # Get model outputs and calculate loss
                     
-                    outputs = model(inputs)
+                    outputs = model(inputs, labels)
                     print(outputs)
                     print(labels)
                     loss = criterion(outputs, labels)
