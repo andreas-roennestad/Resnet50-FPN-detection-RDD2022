@@ -87,7 +87,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             print(images)
 
 
-        return torch.from_numpy(images), targets
+        return images, targets
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
