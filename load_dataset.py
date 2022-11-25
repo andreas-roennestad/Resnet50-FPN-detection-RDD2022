@@ -97,7 +97,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         boxes = []
         labels = []
         for i in range(len(in_dict['object'])):
-            match in_dict['object'][i]['name']:
+            match (in_dict['object'][i])['name']:
                 case 'D00':
                     obj_class = 0 # longitudinal crack
                 case 'D10':
