@@ -75,15 +75,9 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         return len(self.images) 
 
     def collate_fn(self, batch): 
-        images = list()
-        targets = list()
-        for b in batch:
-            images.append(b[0])
-            targets.append(b[1])
-        
-        images = pad_sequence(images, batch_first=False)
+        return tuple(zip(*batch))
 
-        return images, targets
+        #return images, targets
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
