@@ -29,15 +29,15 @@ num_epochs = 10
 #   when True we only update the reshaped layer params
 feature_extract = True
 
-model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
+model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT, num_classes=num_classes)
 print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)
-print(model_ft.box_predictor)
+print(model_ft)
 
 num_ftrs = model_ft.fc.in_features
 model_ft.fc = nn.Linear(num_ftrs, num_classes)
-input_size = 224 #MODIFY
+input_size = 225 #MODIFY
 
 # Data augmentation and normalization for training
 # Just normalization for validation
