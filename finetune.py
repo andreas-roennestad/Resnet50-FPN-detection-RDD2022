@@ -62,7 +62,7 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
             # Iterate over data.
             for inputs, labels in dataloader:
                 inputs = inputs.to(device)
-                labels = labels.move_to(device)
+                labels = move_to(labels, device)
 
                 # zero the parameter gradients
                 optimizer.zero_grad()
