@@ -1,5 +1,8 @@
+print("hei1")
 from __future__ import print_function
 from __future__ import division
+print("hei1")
+
 from load_dataset import RoadCracksDetection
 import torch
 import torch.nn as nn
