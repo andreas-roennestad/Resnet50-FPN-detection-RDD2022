@@ -31,6 +31,8 @@ num_epochs = 10
 feature_extract = True
 
 model_ft = models.resnet18(weights=ResNet18_Weights.DEFAULT)
+print("Transforms: ", ResNet18_Weights.DEFAULT.transforms())
+
 set_parameter_requires_grad(model_ft, feature_extract)
 num_ftrs = model_ft.fc.in_features
 model_ft.fc = nn.Linear(num_ftrs, num_classes)
