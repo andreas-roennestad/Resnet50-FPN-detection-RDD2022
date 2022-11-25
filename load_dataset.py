@@ -26,6 +26,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         transforms: Optional[Callable] = None,
     ):
         super().__init__(root, transforms, transform, target_transform) 
+        self.image_set = image_set
         imgs_dir = os.path.join(root, image_set,"images")
 
         file_names_imgs = [os.path.join(imgs_dir, file) for file in sorted(os.listdir(imgs_dir))]
@@ -36,7 +37,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             self.targets = file_names_targets
 
 
-        assert len(self.images) == len(self.targets)
+        if image_set=='train':
+            assert len(self.images) == len(self.targets)
 
 
 
