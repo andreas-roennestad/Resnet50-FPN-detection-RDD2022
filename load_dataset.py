@@ -80,7 +80,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             images.append(b[0])
             targets.append(b[1])
         
-        images = pad_sequence(images[0], batch_first=True)
+        images = pad_sequence(images, batch_first=True)
 
         return images, targets
 
