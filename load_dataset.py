@@ -62,7 +62,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         if self.target_transform is not None:
             target = self.target_transform(target)
         
-
+        
         if not len(target)==0: 
             return img, target
         else:
@@ -75,9 +75,15 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         return len(self.images) 
 
     def collate_fn(self, batch): 
-        return zip(*batch)
+        images = list()
+        targets = list()
+        for b in batch:
+            images.append(b[0])
+            targets.append(b[1])
+        
+        images = pad_sequence(images, batch_first=True)
 
-        #return images, targets
+        return images, targets
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
@@ -97,7 +103,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             out_dict['area'].append((int(float(obj['bndbox']['xmax']))-int(float(obj['bndbox']['xmin'])))*(int(float(obj['bndbox']['ymax']))- int(float(obj['bndbox']['ymin']))))
             out_dict['iscrowd'].append(False)
         out_dict['image_id'] = int(in_dict['filename'].replace('.jpg', '')[-6:])
-        #print(out_dict['image_id'], in_dict['filename'])
+        print(out_dict['image_id'], in_dict['filename'])
 
         return out_dict
     @staticmethod
