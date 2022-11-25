@@ -16,7 +16,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
 root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
-
+print("hei")
 # Number of classes in the dataset
 num_classes = 4
 
