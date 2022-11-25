@@ -96,9 +96,9 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
         out_dict = {'labels': [], 'boxes': [], 'image_id': [], 'area': [], 'iscrowd': []}
-        num_objs = len(in_dict['object']['bndbox'])
+        num_objs = len(in_dict['bndbox'])
 
-        for obj in in_dict['object']:
+        for obj in in_dict['annotation']:
             match obj['name']:
                 case 'D00':
                     obj_class = 0 # longitudinal crack
