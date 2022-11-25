@@ -72,7 +72,7 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
                 # track history if only in train
                 with torch.set_grad_enabled(phase == 'train'):
                     # Get model outputs and calculate loss
-                    outputs, x = model(inputs, labels)
+                    outputs = model(inputs, labels)
                     print(outputs)
                     print(labels)
                     loss = criterion(outputs, labels)
@@ -152,8 +152,8 @@ def train_step(model: torch.nn.Module,
   # Loop through data loader data batches
   for batch, (X, y) in enumerate(dataloader):
       # Send data to target device
-      X, y = X.to(device), y.to(device)
-
+      X = X.to(device)
+      y = move_to(y, device)
       # 1. Forward pass
       y_pred = model(X)
 

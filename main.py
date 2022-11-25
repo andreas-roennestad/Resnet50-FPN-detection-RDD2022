@@ -113,16 +113,16 @@ from timeit import default_timer as timer
 start_time = timer()
 
 # Setup training and save the results
-"""results = train(model=model_ft,
+results = train(model=model_ft,
                        train_dataloader=dataloader,
                        test_dataloader=dataloader_test,
                        optimizer=optimizer_ft,
                        loss_fn=loss_fn,
                        epochs=5,
-                       device=device)"""
+                       device=device)
 
 # Train and evaluate
-model_ft, hist = train_model(model_ft, dataloader, loss_fn, optimizer_ft, num_epochs=num_epochs)
+#model_ft, hist = train_model(model_ft, dataloader, loss_fn, optimizer_ft, num_epochs=num_epochs)
 
 end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
