@@ -68,6 +68,7 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
                 # zero the parameter gradients
                 optimizer.zero_grad()
                 print("labels:\n", labels)
+                print("inputs:\n", inputs)
                 # forward
                 # track history if only in train
                 with torch.set_grad_enabled(phase == 'train'):
