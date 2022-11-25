@@ -26,8 +26,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         transforms: Optional[Callable] = None,
     ):
         super().__init__(root, transforms, transform, target_transform) 
-
-        print("hello")
         imgs_dir = os.path.join(root, image_set,"images")
 
         file_names_imgs = [os.path.join(imgs_dir, file) for file in sorted(os.listdir(imgs_dir))]
@@ -102,13 +100,13 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         for obj in in_dict['object']:
             match obj['name']:
                 case 'D00':
-                    obj_class = 0 # longitudinal crack
+                    obj_class = 1 # longitudinal crack
                 case 'D10':
-                    obj_class = 1 # transverse crack
+                    obj_class = 2 # transverse crack
                 case 'D20':
-                    obj_class = 2 # alligator crack
+                    obj_class = 3 # alligator crack
                 case 'D40':
-                    obj_class = 3 # pothole
+                    obj_class = 4 # pothole
 
             labels.append(obj_class)
             boxes.append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])

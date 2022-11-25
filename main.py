@@ -1,6 +1,5 @@
 from __future__ import print_function
 from __future__ import division
-from load_dataset import RoadCracksDetection
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -8,6 +7,9 @@ import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train_model
 from torchvision.models import ResNet18_Weights
+print("hei")
+from load_dataset import RoadCracksDetection
+
 
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -16,7 +18,6 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
 root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
-print("hei")
 # Number of classes in the dataset
 num_classes = 4
 
