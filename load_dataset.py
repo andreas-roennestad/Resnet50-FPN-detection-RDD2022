@@ -120,7 +120,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         out_dict["labels"] = labels
         print(out_dict)
 
-        return out_dict
+        return [out_dict]
     @staticmethod
     def parse_xml(node: ET_Element) -> Dict[str, Any]:
         xml_dict: Dict[str, Any] = {}
