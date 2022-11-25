@@ -5,7 +5,8 @@ import torch.optim as optim
 import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train_model
-from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
+from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights, 
+from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
 
 
@@ -37,13 +38,13 @@ set_parameter_requires_grad(model_ft, feature_extract)
 
 print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
 
-num_ftrs = model_ft.fc.in_features
-model_ft.fc = nn.Linear(num_ftrs, num_classes)
+num_ftrs = model_ft.roi_heads.box_predictor.in_features
+model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
 input_size = 225 #MODIFY
-
+data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 # Data augmentation and normalization for training
 # Just normalization for validation
-data_transforms = {
+"""data_transforms = {
     'train': transforms.Compose([
         #transforms.RandomResizedCrop(input_size),
         #transforms.RandomHorizontalFlip(),
@@ -58,11 +59,9 @@ data_transforms = {
         #transforms.Resize(input_size),
         #transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
-}
+}"""
 
-dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=None, transforms=None)
-
-    
+dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
     
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0,collate_fn=dataset.collate_fn)
