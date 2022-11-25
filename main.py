@@ -33,16 +33,9 @@ model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_F
 print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)
-print(model_ft)
+#print(model_ft)
 
-print("########\n\n\n\n\n")
-torch.summary(model=model_ft, 
-        input_size=(32, 3, 224, 224), # make sure this is "input_size", not "input_shape"
-        # col_names=["input_size"], # uncomment for smaller output
-        col_names=["input_size", "output_size", "num_params", "trainable"],
-        col_width=20,
-        row_settings=["var_names"]
-)
+print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
 
 num_ftrs = model_ft.fc.in_features
 model_ft.fc = nn.Linear(num_ftrs, num_classes)
