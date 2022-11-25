@@ -96,17 +96,17 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         num_objs = len(in_dict['object'])
         boxes = []
         labels = []
-        print(in_dict)
         for obj in in_dict['object']:
+            print(obj)
             match obj['name']:
                 case 'D00':
-                    obj_class = 1 # longitudinal crack
+                    obj_class = 0 # longitudinal crack
                 case 'D10':
-                    obj_class = 2 # transverse crack
+                    obj_class = 1 # transverse crack
                 case 'D20':
-                    obj_class = 3 # alligator crack
+                    obj_class = 2 # alligator crack
                 case 'D40':
-                    obj_class = 4 # pothole
+                    obj_class = 3 # pothole
 
             labels.append(obj_class)
             boxes.append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
