@@ -29,7 +29,7 @@ num_epochs = 10
 #   when True we only update the reshaped layer params
 feature_extract = True
 
-model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT, num_classes=num_classes)
+model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
 print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)
