@@ -69,7 +69,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             else:
                 return img
         else:
-            print("dritt", self.data[index])
             del self.data[index]
             return self.__getitem__(index)
 
@@ -105,8 +104,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         boxes = []
         labels = []
         for i in range(len(in_dict['object'])):
-            print("len: ", len(in_dict['object']))
-            print(in_dict['object'])
             
             match in_dict['object'][i]['name']:
                 case 'D00':
@@ -129,7 +126,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         out_dict["boxes"] = boxes
         out_dict["labels"] = labels
 
-        print(out_dict)
 
         return out_dict
     @staticmethod
