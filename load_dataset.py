@@ -111,7 +111,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             labels.append(obj_class)
             boxes.append([int(float(obj['bndbox']['xmin'])), int(float(obj['bndbox']['ymin'])), int(float(obj['bndbox']['xmax'])), int(float(obj['bndbox']['ymax']))])
         
-        labels = torch.as_tensor(out_dict['labels'], dtype=torch.int64)
+        labels = torch.as_tensor(labels, dtype=torch.int64)
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
         #image_id = torch.tensor(int(in_dict['filename'].replace('.jpg', '')[-6:]), dtype=torch.int64)
 
