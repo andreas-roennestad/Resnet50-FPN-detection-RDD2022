@@ -5,7 +5,7 @@ import torch.optim as optim
 import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train_model
-from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights, 
+from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
 
