@@ -63,12 +63,12 @@ def custom_collate(data):
     try:
         inputs = pad_sequence(inputs[0:], batch_first=True)
     except TypeError:
-        print(inputs)
-        exit()
+        print("typeerror")
+        exit() 
     try:
         labels = torch.tensor(labels)  
     except RuntimeError:
-        print(labels) 
+        print("runtimeerror") 
         exit()
     return {
         'imgs': inputs, 
