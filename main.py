@@ -6,8 +6,7 @@ import torch.optim as optim
 import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train_model
-from torchvision.models import ResNet18_Weights
-print("hei")
+from torchvision.models import FasterRCNN_ResNet50_FPN_V2_Weights
 from load_dataset import RoadCracksDetection
 
 
@@ -31,8 +30,8 @@ num_epochs = 10
 #   when True we only update the reshaped layer params
 feature_extract = True
 
-model_ft = models.resnet18(weights=ResNet18_Weights.DEFAULT)
-print("Transforms: ", ResNet18_Weights.DEFAULT.transforms())
+model_ft =models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT)
+print("Transforms: ", FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)
 num_ftrs = model_ft.fc.in_features
