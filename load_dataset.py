@@ -9,6 +9,8 @@ except ImportError:
 from typing import Any, Callable, Dict, Optional, Tuple
 import numpy as np
 from PIL import Image
+from torch.nn.utils.rnn import pad_sequence
+
 
 
 
@@ -69,7 +71,18 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         #return img, target   
 
     def __len__(self) -> int:
-        return len(self.images)   
+        return len(self.images) 
+
+    def collate_fn(self, batch): 
+        images = list()
+        targets = list()
+        for b in batch:
+            images.append(b[0])
+            targets.append(b[1])
+        
+        images = pad_sequence(images[0], batch_first=True)
+
+        return images, targets
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
