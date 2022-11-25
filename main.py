@@ -56,7 +56,7 @@ data_transforms = {
     ]),
 }
 
-dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], None, transforms=None)
+dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['train'], target_transform=None, transforms=None)
 def custom_collate(data): 
     inputs = [dataset[0] for _ in data]
     labels = [dataset[1]  for _ in data] 
