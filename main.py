@@ -60,7 +60,7 @@ dataset = RoadCracksDetection(root_dir, "train", transform=data_transforms['trai
     
     
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4,collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0,collate_fn=dataset.collate_fn)
 
 
 
