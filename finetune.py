@@ -64,7 +64,7 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
             for inputs, labels in dataloader:
                 inputs = inputs.to(device)
                 labels = move_to(labels, device)
-
+                print("LABELS: \n", labels)
                 # zero the parameter gradients
                 optimizer.zero_grad()
                 #print("labels:\n", labels)
@@ -73,10 +73,9 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
                 # track history if only in train
                 with torch.set_grad_enabled(phase == 'train'):
                     # Get model outputs and calculate loss
-                    
                     outputs = model(inputs, labels)
-                    print(outputs)
-                    print(labels)
+                    """print(outputs)
+                    print(labels)"""
                     loss = criterion(outputs, labels)
 
                     _, preds = torch.max(outputs, 1)
