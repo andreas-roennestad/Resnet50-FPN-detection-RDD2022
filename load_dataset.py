@@ -62,7 +62,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         if self.target_transform is not None:
             target = self.target_transform(target)
         
-        
+
         if not len(target)==0: 
             return img, target
         else:
@@ -81,7 +81,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             images.append(b[0])
             targets.append(b[1])
         
-        images = pad_sequence(images, batch_first=True)
+        images = pad_sequence(images, batch_first=False)
 
         return images, targets
 
