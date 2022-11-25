@@ -8,7 +8,7 @@ from finetune import set_parameter_requires_grad, train_model
 from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
-
+from dataloader import create_dataloaders
 
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -64,8 +64,11 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
     
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0)
-
+#dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0)
+dataloader, class_names = create_dataloaders(train_dir=root_dir,
+                                                                    transform=data_transforms, # perform same data transforms on our own data as the pretrained model
+                                                                    batch_size=32
+                                                                    num_workers=1) # set mini-batch size to 32
 
 
 # Detect if we have a GPU available
