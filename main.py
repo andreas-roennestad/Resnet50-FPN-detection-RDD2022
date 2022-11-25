@@ -65,8 +65,8 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
 dataset_test = RoadCracksDetection(root_dir, "test", transforms=data_transforms)
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
-dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=1, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=32, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
 
 """dataloader, class_names = create_dataloaders(train_dir=root_dir,
                                                                     transform=data_transforms, # perform same data transforms on our own data as the pretrained model
@@ -113,16 +113,18 @@ from timeit import default_timer as timer
 start_time = timer()
 
 # Setup training and save the results
-results = train(model=model_ft,
+"""results = train(model=model_ft,
                        train_dataloader=dataloader,
                        test_dataloader=dataloader_test,
                        optimizer=optimizer_ft,
                        loss_fn=loss_fn,
                        epochs=5,
-                       device=device)
+                       device=device)"""
 
-# End the timer and print out how long it took
+# Train and evaluate
+model_ft, hist = train_model(model_ft, dataloader, loss_fn, optimizer_ft, num_epochs=num_epochs)
+
 end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
-# Train and evaluate
-#model_ft, hist = train_model(model_ft, dataloader, criterion, optimizer_ft, num_epochs=num_epochs)
+# End the timer and print out how long it took
+
