@@ -67,7 +67,7 @@ dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
 #dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0)
 dataloader, class_names = create_dataloaders(train_dir=root_dir,
                                                                     transform=data_transforms, # perform same data transforms on our own data as the pretrained model
-                                                                    batch_size=32
+                                                                    batch_size=32,
                                                                     num_workers=1) # set mini-batch size to 32
 
 
