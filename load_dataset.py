@@ -64,6 +64,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         
         if not len(target)==0: 
+            print(img, target)
             return img, target
         else:
             del self.data[index]
