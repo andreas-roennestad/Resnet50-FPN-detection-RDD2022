@@ -38,7 +38,7 @@ set_parameter_requires_grad(model_ft, feature_extract)
 
 print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
 
-num_ftrs = model_ft.roi_heads.box_predictor.in_features
+num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
 input_size = 225 #MODIFY
 data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
