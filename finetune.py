@@ -21,6 +21,22 @@ def set_parameter_requires_grad(model, feature_extracting):
         for param in model.parameters():
             param.requires_grad = False
 
+def move_to(obj, device):
+  if torch.is_tensor(obj):
+    return obj.to(device)
+  elif isinstance(obj, dict):
+    res = {}
+    for k, v in obj.items():
+      res[k] = move_to(v, device)
+    return res
+  elif isinstance(obj, list):
+    res = []
+    for v in obj:
+      res.append(move_to(v, device))
+    return res
+  else:
+    raise TypeError("Invalid type for move_to")
+
 def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
     since = time.time()
 
@@ -46,7 +62,7 @@ def train_model(model, dataloader, criterion, optimizer, num_epochs=25):
             # Iterate over data.
             for inputs, labels in dataloader:
                 inputs = inputs.to(device)
-                labels = labels.to(device)
+                labels = labels.move_to(device)
 
                 # zero the parameter gradients
                 optimizer.zero_grad()
