@@ -57,12 +57,12 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         if self.transforms is not None:
             img = self.transforms(img)
+            target = self.transforms(target['boxes'])
         """if self.target_transform is not None:
             target = self.target_transform(target)"""
         
         
         if not len(target)==0: 
-            print(img, target)
             return img, target
         else:
             del self.data[index]
