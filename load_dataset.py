@@ -82,12 +82,12 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             targets.append(b[1])
         
         try:
-            images = torch.from_numpy(np.asarray(pad_sequence(images, batch_first=True).astype('float64')))
+            images = np.asarray(pad_sequence(images, batch_first=True).astype('float64'))
         except RuntimeError:
             print(images)
 
 
-        return images, targets
+        return torch.from_numpy(images), targets
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
