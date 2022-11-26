@@ -160,6 +160,7 @@ def train_step(model: torch.nn.Module,
         y_pred = model(X, y)
         # 2. Calculate  and accumulate loss
         #print(y_pred)
+        print(y_pred)
         loss = y_pred['loss_classifier']#loss_fn(y_pred, y)
         train_loss += loss.item()
         #print(loss)
