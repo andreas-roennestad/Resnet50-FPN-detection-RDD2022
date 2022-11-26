@@ -83,7 +83,7 @@ s_dataset = Subset(dataset, indices=range(len(dataset) // 400))
 s_dataset_test = Subset(dataset, indices=range(len(dataset) // 400))
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=1, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
 
 """dataloader, class_names = create_dataloaders(train_dir=root_dir,
                                                                     transform=data_transforms, # perform same data transforms on our own data as the pretrained model
