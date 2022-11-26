@@ -80,7 +80,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def collate_fn(self, batch): 
         data = [item[0] for item in batch]
         target = [item[1] for item in batch]
-        target = torch.LongTensor(target)
+        #target = torch.LongTensor(target)
         return [data, target]
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
