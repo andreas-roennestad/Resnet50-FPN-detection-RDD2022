@@ -20,7 +20,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
 root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
-save_file = "/cluster/work/andronn/VisualIntelligence/miniProject/resnet_fpn_model.pkl"
+save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 
 # Number of classes in the dataset
 num_classes = 4
@@ -81,13 +81,15 @@ dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
 s_dataset = Subset(dataset, indices=range(len(dataset) // 10))
 s_dataset_test = Subset(dataset, indices=range(len(dataset) // 10, len(dataset) // 100 + 50))
 print("Length training data: ", len(s_dataset))
+print("Length test data: ", len(s_dataset_test))
 
 
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
 dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
 
-
+print("Len dataloader training: ", len(dataloader))
+print("Len dataloader test: ", len(dataloader_test))
 
 # Detect if we have a GPU available
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
