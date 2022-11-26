@@ -1,6 +1,8 @@
 from __future__ import print_function
 from __future__ import division
 
+from werkzeug import test
+
 from load_dataset import RoadCracksDetection
 import torch
 import torch.nn as nn
@@ -159,7 +161,6 @@ def train_step(model: torch.nn.Module,
         # 1. Forward pass
         y_pred = model(X, y)
         # 2. Calculate  and accumulate loss
-        print("TRAIN: ", y_pred)
         loss = y_pred['loss_classifier']#loss_fn(y_pred, y)
         train_loss += loss.item()
         #print(loss)
@@ -218,26 +219,14 @@ def test_step(model: torch.nn.Module,
             y = move_to(y, device)
 
             # 1. Forward pass
-            test_pred_logits = model(X)
-            print("Length: ", len(test_pred_logits))
-            print("testtestTEST: ", test_pred_logits)
-            # 2. Calculate and accumulate loss
-            for y_pred in test_pred_logits:
-                print("y_pred ...: ", y_pred)
-                loss = y_pred['loss_classifier']
-                test_loss += loss
-                score = y_pred['scores']
-                test_acc += score
-
+            test_pred_logits = model(X,y)
+            loss = test_pred_logits['loss_classifier']#loss_fn(y_pred, y)
             test_loss += loss.item()
+            score = test_pred_logits['scores']
+            test_acc += score.item()
 
             # Calculate and accumulate accuracy
-            avg = 0
-            for score in test_pred_logits['scores']:
-                avg+=score
-            avg /= len(test_pred_logits['scores'])
 
-            test_acc +=  avg
 
     # Adjust metrics to get average loss and accuracy per batch 
     test_loss = test_loss / len(dataloader)
