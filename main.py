@@ -10,7 +10,8 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
 from dataloader import create_dataloaders
 from torch.utils.data import Subset
-
+import pickle
+import os
 
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
@@ -19,6 +20,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
 root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
+save_file = "/cluster/work/andronn/VisualIntelligence/miniProject/resnet_fpn_model.pkl"
+
 # Number of classes in the dataset
 num_classes = 4
 
@@ -33,6 +36,16 @@ num_epochs = 1
 feature_extract = True
 
 model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
+try:
+    if not os.path.isfile(save_file):
+        with open(save_file,"wb") as file:
+            torch.save(model_ft, save_file)
+    else:
+        torch.save(model_ft, save_file)
+
+except IOError:
+    print("Model saving cannot be done.\n")
+
 print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)
@@ -132,3 +145,5 @@ end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
 # End the timer and print out how long it took
 
+torch.save(model_ft, save_file)
+print("Model trained. Saved to {0}".format(save_file))
