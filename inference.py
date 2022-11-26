@@ -32,12 +32,11 @@ num_epochs = 1
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
 feature_extract = True
-model_ft = None
 if not os.path.isfile(save_file):
     print("Could not open file. \n")
     exit()
 else:
-    with open(save_file,"r") as file:
+    with open(save_file,"rb") as file:
         model_ft = torch.load(file)
 
 
