@@ -125,7 +125,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
         #image_id = torch.tensor(int(in_dict['filename'].replace('.jpg', '')[-6:]), dtype=torch.int64)
 
-        out_dict["boxes"] = boxes
+        out_dict["boxes"] = boxes.unsqueeze(0)
         out_dict["labels"] = labels
 
 
