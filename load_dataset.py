@@ -80,14 +80,16 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
     def collate_fn(self, batch): 
         images = list()
         targets = list()
+
         for b in batch:
             images.append(b[0])
+            print(b[0])
             if self.image_set=='train':
                 targets.append(b[1])
         
         print("IMAGES", images[0].shape)
         print("y: ", targets)
-        images = pad_sequence([images[0].T, images[1].T, images[2].T], batch_first=True)
+        images = pad_sequence(images, batch_first=True)
         
         
 
