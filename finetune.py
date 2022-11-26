@@ -220,8 +220,9 @@ def test_step(model: torch.nn.Module,
             
             print(predictions)
             for pred in predictions:
-                score = pred['scores']
-                test_acc += score.item()
+                scores = pred['scores']
+                for score in scores:
+                    test_acc += score.item()
             """loss = test_pred_logits['loss_classifier']#loss_fn(y_pred, y)
             test_loss += loss.item()
             score = test_pred_logits['scores']
