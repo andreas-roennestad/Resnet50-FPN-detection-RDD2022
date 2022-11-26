@@ -9,6 +9,7 @@ from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_Res
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
 from dataloader import create_dataloaders
+from torch.utils.data import Subset
 
 
 print("PyTorch Version: ",torch.__version__)
@@ -25,7 +26,7 @@ num_classes = 4
 batch_size = 16
 
 # Number of epochs to train for
-num_epochs = 10
+num_epochs = 1
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
@@ -64,6 +65,8 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
 dataset_test = RoadCracksDetection(root_dir, "test", transforms=data_transforms)
+
+Subset(dataset, indices=range(len(dataset) // 400))
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=8, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
 dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=8, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
