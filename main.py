@@ -75,8 +75,8 @@ dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=32, shuff
 
 
 # Detect if we have a GPU available
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+print(device)
 
 # Send the model to GPU
 model_ft = model_ft.to(device)
