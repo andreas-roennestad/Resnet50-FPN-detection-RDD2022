@@ -10,8 +10,8 @@ from typing import Any, Callable, Dict, Optional, Tuple
 import numpy as np
 from PIL import Image
 from torch.nn.utils.rnn import pad_sequence
+from torch import itertools
 import torch
-
 
 
 
@@ -83,7 +83,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
 
         for b in batch:
             images.append(b[0])
-            print(b[0])
             if self.image_set=='train':
                 targets.append(b[1])
         
@@ -91,7 +90,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         print("y: ", targets)
         images = pad_sequence(images, batch_first=True)
         
-        
+        return itertools.zip_longest(*batch)
 
         #images = torch.stack(images)
         #targets = torch.stack(targets)
