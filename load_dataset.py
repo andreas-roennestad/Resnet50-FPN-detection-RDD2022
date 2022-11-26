@@ -10,7 +10,7 @@ from typing import Any, Callable, Dict, Optional, Tuple
 import numpy as np
 from PIL import Image
 from torch.nn.utils.rnn import pad_sequence
-from torch import itertools
+import itertools
 import torch
 
 
