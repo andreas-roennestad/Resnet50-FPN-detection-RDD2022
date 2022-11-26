@@ -217,7 +217,7 @@ def test_step(model: torch.nn.Module,
     
             # 1. Forward pass
             predictions = model(X)
-            
+            print(predictions)
             for pred in predictions:
                 scores = pred['scores']
                 for score in scores:
