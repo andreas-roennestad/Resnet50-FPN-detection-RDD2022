@@ -35,15 +35,7 @@ num_epochs = 1
 feature_extract = True
 
 model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
-try:
-    if not os.path.isfile(save_file):
-        with open(save_file,"wb") as file:
-            torch.save(model_ft, save_file)
-    else:
-        torch.save(model_ft, save_file)
 
-except IOError:
-    print("Model saving cannot be done.\n")
 
 print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 
@@ -54,6 +46,7 @@ set_parameter_requires_grad(model_ft, feature_extract)
 
 num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
+print(model_ft)
 input_size = 225 #MODIFY
 data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 # Data augmentation and normalization for training
