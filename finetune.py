@@ -223,6 +223,7 @@ def test_step(model: torch.nn.Module,
 
             # 2. Calculate and accumulate loss
             for y_pred in test_pred_logits:
+                print("y_pred ...: ", y_pred)
                 loss = y_pred['loss_classifier']
                 test_loss += loss.item()
                 score = y_pred['scores']
