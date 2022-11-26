@@ -78,43 +78,23 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         return len(self.images) 
 
     def collate_fn(self, batch): 
-        """images = list()
+        images = list()
         targets = list()
         for b in batch:
             images.append(b[0])
             if self.image_set=='train':
                 targets.append(b[1])
         
+        images = torch.as_tensor(images, torch.float32)
         print(images)
         images = pad_sequence(images, batch_first=True)
-        """
-        max_h = 0
-        max_w = 0
-        for x, y in batch:
-            print('y: ',y )
-            h,w = x.shape[1], x.shape[2]
-            if h>max_h:
-                max_h=h
-            if w>max_w:
-                max_w = w   
-                new_batch = []
-        for x, y in batch:
-            if (x.shape[1] != max_h) or (x.shape[2] != max_w):
-                print('Fix (like padding?)')
-                h,w = x.shape[1], x.shape[2]
-                pad_w = torch.zeros(3, h, max_w-w)
-                new_x = torch.cat((x,pad_w),2) # adjust width
-                new_h, new_w = new_x.shape[1], new_x.shape[2]
-                pad_h = torch.zeros(3, max_h-h, new_w) # adjust height
-                new_x = torch.cat((new_x,pad_h),1)
-                new_batch.append((new_x,y))
-            else:
-                new_batch.append((x,y)) # max dimensions -- > just add to the new batch
+        
+        
 
         #images = torch.stack(images)
         #targets = torch.stack(targets)
         if self.image_set=='train':
-            return new_batch[0], new_batch[1]
+            return images, targets
         else:
             return images
 
