@@ -215,13 +215,13 @@ def test_step(model: torch.nn.Module,
             y = move_to(y, device)
     
             # 1. Forward pass
-            #print("Predictions:\n")
+            print("Predictions:\n")
             predictions = model(X)
-            #print(predictions)
-            #print("#############\n\n\n")
-            #print("Labels:\n")
-            #print(y)
-            #print('###########')
+            print(predictions)
+            print("#############\n\n\n")
+            print("Labels:\n")
+            print(y)
+            print('###########')
 
 
 
