@@ -34,10 +34,11 @@ num_epochs = 1
 feature_extract = True
 model_ft = None
 if not os.path.isfile(save_file):
+    print("Could not open file. \n")
+    exit()
+else:
     with open(save_file,"r") as file:
         model_ft = torch.load(file)
-else:
-    print("Could not open file.\n")
 
 
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
