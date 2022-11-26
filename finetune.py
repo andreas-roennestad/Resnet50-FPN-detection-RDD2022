@@ -225,7 +225,12 @@ def test_step(model: torch.nn.Module,
             test_loss += loss.item()
 
             # Calculate and accumulate accuracy
-            test_acc += test_pred_logits['score']
+            avg = 0
+            for score in test_pred_logits['scores']:
+                avg+=score
+            avg /= len(test_pred_logits['scores'])
+
+            test_acc +=  avg
 
     # Adjust metrics to get average loss and accuracy per batch 
     test_loss = test_loss / len(dataloader)
