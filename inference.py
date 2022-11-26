@@ -32,7 +32,7 @@ num_epochs = 1
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
 feature_extract = True
-
+model_ft = None
 if not os.path.isfile(save_file):
     with open(save_file,"r") as file:
         model_ft = torch.load(file)
@@ -77,8 +77,6 @@ results = test(model=model_ft,
                        epochs=num_epochs,
                        device=device)
 
-# Train and evaluate
-#model_ft, hist = train_model(model_ft, dataloader, loss_fn, optimizer_ft, num_epochs=num_epochs)
 
 end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
