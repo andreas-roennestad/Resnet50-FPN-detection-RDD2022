@@ -155,7 +155,6 @@ def train_step(model: torch.nn.Module,
         X = X.to(device)
         y = move_to(y, device)
         # 1. Forward pass
-        print(y)
         y_pred = model(X, y)
         print(y_pred)
         # 2. Calculate  and accumulate loss
@@ -172,8 +171,8 @@ def train_step(model: torch.nn.Module,
         optimizer.step()
 
         # Calculate and accumulate accuracy metric across all batches
-        #y_pred_class = y_pred['loss_classifier']#torch.argmax(torch.softmax(y_pred['loss_classifier'], dim=1), dim=1)
-        #train_acc += (y_pred_class == y).sum().item()/len(y_pred_class)
+        y_pred_class = torch.argmax(torch.softmax(y_pred['loss_classifier'], dim=1), dim=1)
+        train_acc += (y_pred_class == y).sum().item()/len(y_pred_class)
 
     # Adjust metrics to get average loss and accuracy per batch 
     train_loss = train_loss / len(dataloader)
