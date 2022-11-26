@@ -89,7 +89,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         print("Targets,  ", targets)
         #print("IMAGES", images[0].shape)
         #print("y: ", targets)
-        return itertools.zip_longest(*batch)
+        return tuple(itertools.zip_longest(*batch))
 
         images = pad_sequence(images, batch_first=True)
         
