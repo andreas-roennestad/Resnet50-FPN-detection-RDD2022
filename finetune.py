@@ -154,7 +154,7 @@ def train_step(model: torch.nn.Module,
         # Send data to target device
         #print(X[0])
         X = X[0].to(device)
-        print("y0:   ", y[0])
+        print("y0:   ", type(y[0]))
         y = move_to(y[0], device)
         # 1. Forward pass
         y_pred = model(X, y)
