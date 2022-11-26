@@ -1,8 +1,6 @@
 from __future__ import print_function
 from __future__ import division
 
-from werkzeug import test
-
 from load_dataset import RoadCracksDetection
 import torch
 import torch.nn as nn
