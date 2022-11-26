@@ -91,7 +91,7 @@ print("Len dataloader training: ", len(dataloader))
 print("Len dataloader test: ", len(dataloader_test))
 
 # Detect if we have a GPU available
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(device)
 
 # Send the model to GPU
