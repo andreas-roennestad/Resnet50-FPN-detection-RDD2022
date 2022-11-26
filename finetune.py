@@ -218,6 +218,7 @@ def test_step(model: torch.nn.Module,
 
             # 1. Forward pass
             test_pred_logits = model(X,y)
+            print(test_pred_logits)
             loss = test_pred_logits['loss_classifier']#loss_fn(y_pred, y)
             test_loss += loss.item()
             score = test_pred_logits['scores']
