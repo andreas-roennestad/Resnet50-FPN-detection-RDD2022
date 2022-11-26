@@ -86,7 +86,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
                 targets.append(b[1])
         
             
-        images = pad_sequence(images, batch_first=True))
+        images = pad_sequence(images, batch_first=True)
     
         
         #images = torch.stack(images)
