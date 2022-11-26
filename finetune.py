@@ -310,10 +310,9 @@ def train(model: torch.nn.Module,
     # Return the filled results at the end of the epochs
     return results
 
-def train(model: torch.nn.Module, 
-          train_dataloader: torch.utils.data.DataLoader, 
+
+def test(model: torch.nn.Module, 
           test_dataloader: torch.utils.data.DataLoader, 
-          optimizer: torch.optim.Optimizer,
           loss_fn: torch.nn.Module,
           epochs: int,
           device: torch.device) -> Dict[str, List]:
