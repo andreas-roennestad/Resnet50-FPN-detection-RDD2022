@@ -216,9 +216,12 @@ def test_step(model: torch.nn.Module,
             y = move_to(y, device)
     
             # 1. Forward pass
+            print("Predictions:\n")
             predictions = model(X)
             print("#############\n\n\n")
+            print("Labels:\n")
             print(y)
+            print('###########')
             for pred in predictions:
                 scores = pred['scores']
                 for score in scores:
