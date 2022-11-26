@@ -218,11 +218,10 @@ def test_step(model: torch.nn.Module,
             # 1. Forward pass
             predictions = model(X)
             
-            print(predictions)
             for pred in predictions:
                 scores = pred['scores']
                 for score in scores:
-                    test_acc += score.item()
+                    test_acc += score
             """loss = test_pred_logits['loss_classifier']#loss_fn(y_pred, y)
             test_loss += loss.item()
             score = test_pred_logits['scores']
@@ -310,3 +309,40 @@ def train(model: torch.nn.Module,
 
     # Return the filled results at the end of the epochs
     return results
+
+def train(model: torch.nn.Module, 
+          train_dataloader: torch.utils.data.DataLoader, 
+          test_dataloader: torch.utils.data.DataLoader, 
+          optimizer: torch.optim.Optimizer,
+          loss_fn: torch.nn.Module,
+          epochs: int,
+          device: torch.device) -> Dict[str, List]:
+   
+    # Create empty results dictionary
+    results = {
+        "test_loss": [],
+        "test_acc": []
+    }
+
+    # Loop through training and testing steps for a number of epochs
+    for epoch in tqdm(range(epochs)):
+        test_loss, test_acc = test_step(model=model,
+            dataloader=test_dataloader,
+            loss_fn=loss_fn,
+            device=device)
+
+        # Print out what's happening
+        print(
+            f"Epoch: {epoch+1} | "
+            f"test_loss: {test_loss:.4f} | "
+            f"test_acc: {test_acc:.4f}"
+        )
+
+        # Update results dictionary
+        results["test_loss"].append(test_loss)
+        results["test_acc"].append(test_acc)
+
+    # Return the filled results at the end of the epochs
+    return results
+
+    
