@@ -83,6 +83,3 @@ results = test(model=model_ft,
 end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
 # End the timer and print out how long it took
-
-torch.save(model_ft, save_file)
-print("Model trained. Saved to {0}".format(save_file))
