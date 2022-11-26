@@ -86,6 +86,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             if self.image_set=='train':
                 targets.append(b[1])
         
+        print("Targets,  ", targets)
         #print("IMAGES", images[0].shape)
         #print("y: ", targets)
         return itertools.zip_longest(*batch)

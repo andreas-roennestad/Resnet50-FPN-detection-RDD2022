@@ -152,9 +152,9 @@ def train_step(model: torch.nn.Module,
     # Loop through data loader data batches
     for batch, (X, y) in tqdm(enumerate(dataloader)):
         # Send data to target device
-        print(X[0])
+        #print(X[0])
         X = X[0].to(device)
-        print(y[0])
+        #print(y[0])
         y = move_to(y[0], device)
         # 1. Forward pass
         y_pred = model(X, y)
