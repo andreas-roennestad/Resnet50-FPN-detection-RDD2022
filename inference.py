@@ -51,7 +51,7 @@ print("Length test data: ", len(s_dataset_test))
 
 
 # Create validation dataloaders
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=1, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
 
 print("Len dataloader test: ", len(dataloader_test))
 
@@ -79,5 +79,5 @@ results = test(model=model_ft,
 
 
 end_time = timer()
-print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
+print(f"[INFO] Total time: {end_time-start_time:.3f} seconds")
 # End the timer and print out how long it took
