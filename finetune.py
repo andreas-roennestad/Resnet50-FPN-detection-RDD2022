@@ -215,23 +215,14 @@ def test_step(model: torch.nn.Module,
             y = move_to(y, device)
     
             # 1. Forward pass
-            print("Predictions:\n")
+            #print("Predictions:\n")
             predictions = model(X)
-            print(predictions)
-            print("#############\n\n\n")
-            print("Labels:\n")
-            print(y)
-            print('###########')
-            for pred in predictions:
-                scores = pred['scores']
-                for score in scores:
-                    test_acc += score
-            """loss = test_pred_logits['loss_classifier']#loss_fn(y_pred, y)
-            test_loss += loss.item()
-            score = test_pred_logits['scores']
-            test_acc += score.item()"""
+            #print(predictions)
+            #print("#############\n\n\n")
+            #print("Labels:\n")
+            #print(y)
+            #print('###########')
 
-            # Calculate and accumulate accuracy
 
 
     # Adjust metrics to get average loss and accuracy per batch 
