@@ -85,7 +85,9 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             if self.image_set=='train':
                 targets.append(b[1])
         
-        images = torch.as_tensor(images)
+        print("IMAGES", images)
+        print("y: ", targets)
+        images = torch.FloatTens(images)
         print(images)
         images = pad_sequence(images, batch_first=True)
         
