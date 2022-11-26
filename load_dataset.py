@@ -114,7 +114,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         #images = torch.stack(images)
         #targets = torch.stack(targets)
         if self.image_set=='train':
-            return new_batch
+            return new_batch[0], new_batch[1]
         else:
             return images
 
