@@ -219,8 +219,8 @@ def test_step(model: torch.nn.Module,
 
             # 1. Forward pass
             test_pred_logits = model(X)
-            print(len(test_pred_logits))
-            
+            print("Length: ", len(test_pred_logits))
+
             # 2. Calculate and accumulate loss
             loss = test_pred_logits['loss_classifier']
             test_loss += loss.item()
