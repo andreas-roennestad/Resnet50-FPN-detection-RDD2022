@@ -56,7 +56,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         if self.image_set == 'train':
             xml = self.parse_xml(ET_parse(self.targets[index]).getroot())
             target = self.parse_dict(xml)
-            print(target)
 
         
         if self.transforms is not None:
