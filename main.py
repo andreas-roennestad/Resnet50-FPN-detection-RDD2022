@@ -25,7 +25,7 @@ save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 num_classes = 4
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 1
+batch_size = 8
 
 # Number of epochs to train for
 num_epochs = 1
@@ -60,8 +60,8 @@ print("Length test data: ", len(s_dataset_test))
 
 
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=0, collate_fn=dataset.collate_fn)
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=0, collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
 print("Len dataloader test: ", len(dataloader_test))
