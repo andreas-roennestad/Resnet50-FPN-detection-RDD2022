@@ -230,7 +230,7 @@ def test_step(model: torch.nn.Module,
                 predictions = model(X)
                 print(predictions)
                 count = 0
-                for pred in predictions:
+                for p in predictions:
                     
                     boxes, labels, scores = p['boxes'], p['labels'], p['scores']
                     for s in range(len(scores)):
