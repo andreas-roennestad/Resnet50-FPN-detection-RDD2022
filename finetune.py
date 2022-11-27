@@ -218,6 +218,7 @@ def test_step(model: torch.nn.Module,
             # 1. Forward pass
             predictions = model(X)
             print(predictions)
+            # transport to cpu and save xmls
             
 
 
