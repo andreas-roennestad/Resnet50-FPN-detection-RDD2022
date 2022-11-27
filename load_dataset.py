@@ -75,7 +75,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             del self.targets[index]
             return self.__getitem__(index)
 
-        #return img, target   
 
     def __len__(self) -> int:
         return len(self.images) 
@@ -89,7 +88,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         else:
             data = [item for item in batch]
             name = [item[1] for item in batch]
-
+            print(name, data)
             return [data, name]
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
