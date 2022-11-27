@@ -107,7 +107,7 @@ start_time = timer()
 # Setup training and save the results
 results = train(model=model_ft,
                        train_dataloader=dataloader,
-                       test_dataloader=dataloader_test,
+                       test_dataloader=None,
                        optimizer=optimizer_ft,
                        loss_fn=loss_fn,
                        epochs=num_epochs,
