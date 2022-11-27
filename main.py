@@ -72,8 +72,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
 # Send the model to GPU
-model_ft = nn.DataParallel(model_ft)
-model_ft = model_ft.to(device)
+model_ft.to(device)
 
 # Gather the parameters to be optimized/updated in this run. If we are
 #  finetuning we will be updating all parameters. However, if we are
