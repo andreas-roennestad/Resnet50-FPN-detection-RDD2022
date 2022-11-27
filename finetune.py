@@ -240,7 +240,7 @@ def test_step(model: torch.nn.Module,
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
                             for i in range(len(b)):
-                                line+=str(b[i]) + ' '
+                                line+=str(int(b[i])) + ' '
                     with open(predictions_file, 'a', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerow([f, line])
