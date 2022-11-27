@@ -162,8 +162,8 @@ def train_step(model: torch.nn.Module,
         loss = y_pred['loss_classifier']#loss_fn(y_pred, y)
         train_loss += loss.item()
 
-        losses = sum(loss for loss in y_pred.values())
-        print(losses)
+        #losses = sum(loss for loss in y_pred.values())
+        print(y_pred)
         # 3. Optimizer zero grad
         optimizer.zero_grad()
 
