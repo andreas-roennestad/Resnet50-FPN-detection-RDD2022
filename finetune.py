@@ -228,7 +228,7 @@ def test_step(model: torch.nn.Module,
                 # 1. Forward pass
                 # transport to cpu and save csvs
                 predictions = model(X)
-                print(predictions, '\n')
+                #print(predictions, '\n')
                 for p in range(len(predictions)):
                     f = f_name[p]
                     boxes, labels, scores = predictions[p]['boxes'], predictions[p]['labels'], predictions[p]['scores']
