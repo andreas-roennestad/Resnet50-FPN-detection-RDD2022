@@ -22,7 +22,7 @@ root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
 save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 
 # Number of classes in the dataset
-num_classes = 4
+num_classes = 5
 
 # Batch size for training (change depending on how much memory you have)
 batch_size = 1
