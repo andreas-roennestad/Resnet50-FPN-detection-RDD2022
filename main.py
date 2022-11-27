@@ -5,7 +5,7 @@ import torch.optim as optim
 import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train, test
-from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
+from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_v2_Weights
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
 from dataloader import create_dataloaders
@@ -36,10 +36,10 @@ num_epochs = 3
 #   when True we only update the reshaped layer params
 feature_extract = True
 
-model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
+model_ft =models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_v2_Weights.DEFAULT)
 
 
-print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
+print("Transforms: ", FasterRCNN_ResNet50_FPN_v2_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)      
 
@@ -47,7 +47,7 @@ set_parameter_requires_grad(model_ft, feature_extract)
 
 num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
-data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
+data_transforms = FasterRCNN_ResNet50_FPN_v2_Weights.DEFAULT.transforms()
 # Data augmentation and normalization for training
 # Just normalization for validation
 
@@ -92,8 +92,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.005, momentum=0.90, weight_decay=0.001)
-
+optimizer_ft = torch.optim.Adam(model_ft, lr=0.001, weight_decay=0.001)#optim.SGD(params_to_update, lr=0.005, momentum=0.90, weight_decay=0.001)
 loss_fn = nn.CrossEntropyLoss()
 
 
@@ -111,7 +110,9 @@ results = train(model=model_ft,
                        optimizer=optimizer_ft,
                        loss_fn=loss_fn,
                        epochs=num_epochs,
-                       device=device, test_model=True)
+                       device=device, 
+                       test_model=True,
+                       )
 
 # Train and evaluate
 #model_ft, hist = train_model(model_ft, dataloader, loss_fn, optimizer_ft, num_epochs=num_epochs)

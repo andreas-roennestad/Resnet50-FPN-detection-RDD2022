@@ -182,7 +182,9 @@ def train(model: torch.nn.Module,
           loss_fn: torch.nn.Module,
           epochs: int,
           device: torch.device,
-          test_model=False) -> Dict[str, List]:
+          test_model=False,
+          
+          ) -> Dict[str, List]:
     """Trains and tests a PyTorch model.
     """
     # Create empty results dictionary
@@ -197,7 +199,8 @@ def train(model: torch.nn.Module,
                                             dataloader=train_dataloader,
                                             loss_fn=loss_fn,
                                             optimizer=optimizer,
-                                            device=device)
+                                            device=device
+                                            )
         if test_model:
             test_loss = test_step(model=model,
             dataloader=test_dataloader,
