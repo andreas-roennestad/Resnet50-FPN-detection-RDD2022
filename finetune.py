@@ -209,21 +209,18 @@ def test_step(model: torch.nn.Module,
 
     # Turn on inference context manager
     with torch.no_grad():
-        with torch.inference_mode():
-            # Loop through DataLoader batches
-            for batch, (X, y) in tqdm(enumerate(dataloader)):
-
-            
-                # Send data to target device
-                #print(X[0])
-                X = move_to(X, device)
-                y = move_to(y, device)
+        # Loop through DataLoader batches
+        for batch, (X, y) in tqdm(enumerate(dataloader)):
         
-
-                # 1. Forward pass
-                predictions = model(X)
-                print(predictions)
-                # transport to cpu and save xmls
+            # Send data to target device
+            #print(X[0])
+            X = move_to(X, device)
+            y = move_to(y, device)
+    
+            # 1. Forward pass
+            predictions = model(X)
+            print(predictions)
+            # transport to cpu and save xmls
             
 
 
