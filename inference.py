@@ -54,7 +54,7 @@ print("Length test data: ", len(dataset_test))
 
 
 # Create validation dataloaders
-dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=8, shuffle=False, num_workers=6, collate_fn=dataset_test.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=8, shuffle=False, num_workers=4, collate_fn=dataset_test.collate_fn)
 print("Len dataloader test: ", len(dataloader_test))
 
 
