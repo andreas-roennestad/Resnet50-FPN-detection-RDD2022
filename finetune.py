@@ -233,7 +233,7 @@ def test_step(model: torch.nn.Module,
                     f = f_name[p]
                     boxes, labels, scores = predictions[p]['boxes'], predictions[p]['labels'], predictions[p]['scores']
                     line = ""
-
+                    
                     for s in range(len(scores)):
                         if scores[s] > 0:     
                             b = boxes[s].cpu().numpy()
@@ -243,7 +243,7 @@ def test_step(model: torch.nn.Module,
                                 line+=str(b[i]) + ' '
                     with open(predictions_file, 'a', newline='') as file:
                         writer = csv.writer(file)
-                        writer.writerow([f_name, line])
+                        writer.writerow([f, line])
                     
 
 
