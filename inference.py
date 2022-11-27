@@ -37,7 +37,10 @@ if not os.path.isfile(save_file):
     exit()
 else:
     with open(save_file,"rb") as file:
-        model_ft = torch.load(file)
+        model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
+        num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
+        model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
+        model_ft = model_ft.load_state_dict(torch.load(file))
 
 
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
