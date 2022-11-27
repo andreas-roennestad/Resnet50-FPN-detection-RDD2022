@@ -63,7 +63,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         if self.image_set=='test':
             return img, self.images_filenames[index]
-        if self.image_set=='train' and len(target)==0: 
+        if self.image_set=='train' and not len(target)==0: 
             if self.image_set=='train':
                 return img, target, self.images_filenames[index]
             else:
@@ -71,7 +71,6 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         else:
             del self.images[index]
             del self.targets[index]
-            print("e")
             return self.__getitem__(index)
 
 
