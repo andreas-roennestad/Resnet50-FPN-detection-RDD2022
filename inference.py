@@ -21,17 +21,17 @@ root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
 save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 
 # Number of classes in the dataset
-num_classes = 4
+num_classes = 5
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 8
+batch_size = 1
 
 # Number of epochs to train for
 num_epochs = 1
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
-feature_extract = True
+
 if not os.path.isfile(save_file):
     print("Could not open file. \n")
     exit()
@@ -45,7 +45,7 @@ print(device)
 
 data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
-dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
+dataset = RoadCracksDetection(root_dir, "test", transforms=data_transforms)
 s_dataset_test = Subset(dataset, indices=range(len(dataset)//10*8, len(dataset)))
 print("Length test data: ", len(s_dataset_test))
 

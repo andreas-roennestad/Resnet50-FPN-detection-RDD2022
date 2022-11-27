@@ -13,6 +13,7 @@ import time
 import os
 import copy
 from tqdm import tqdm
+import csv
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -211,19 +212,39 @@ def test_step(model: torch.nn.Module,
     with torch.no_grad():
         with torch.inference_mode():
             # Loop through DataLoader batches
-            for batch, (X, y) in tqdm(enumerate(dataloader)):
+            for batch, (X) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
                 #print(X[0])
                 X = move_to(X, device)
-                y = move_to(y, device)
+                #y = move_to(y, device)
         
-
+                
                 # 1. Forward pass
+                # transport to cpu and save csvs
                 predictions = model(X)
-                print(predictions)
-                # transport to cpu and save xmls
+                pred_cpu = predictions.cpu()
+                print(pred_cpu)
+                for pred in pred_cpu:
+                    boxes, labels, scores = pred['boxes'], pred['labels'], pred['scores']
+                    for s in range(len(scores)):
+                        if scores[s] > 0.3:
+                            line = []
+                            with open(predictions_file, 'w') as file:
+                                writer = csv.writer(file)
+                                writer.writerow(data)
+
+
+        boxes (FloatTensor[N, 4]): the predicted boxes in [x1, y1, x2, y2] format, with 0 <= x1 < x2 <= W and 0 <= y1 < y2 <= H.
+
+        labels (Int64Tensor[N]): the predicted labels for each detection
+
+        scores (Tensor[N]): the scores of each detection
+
+
+
+                
             
 
 
