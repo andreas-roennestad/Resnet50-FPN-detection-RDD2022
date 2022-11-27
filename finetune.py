@@ -162,8 +162,8 @@ def train_step(model: torch.nn.Module,
         loss = y_pred['loss_classifier']#loss_fn(y_pred, y)
         train_loss += loss.item()
 
-        #losses = sum(loss for loss in y_pred.values())
-        print(y_pred)
+        losses = sum(loss for loss in y_pred.values())
+        print(losses)
         # 3. Optimizer zero grad
         optimizer.zero_grad()
 
@@ -208,7 +208,7 @@ def test_step(model: torch.nn.Module,
     test_loss, test_acc = 0, 0
 
     # Turn on inference context manager
-    with torch.no_grad():
+    with torch.inference_mode():
         # Loop through DataLoader batches
         for batch, (X, y) in tqdm(enumerate(dataloader)):
         
@@ -217,6 +217,7 @@ def test_step(model: torch.nn.Module,
             X = move_to(X, device)
             y = move_to(y, device)
     
+
             # 1. Forward pass
             predictions = model(X)
             print(predictions)
