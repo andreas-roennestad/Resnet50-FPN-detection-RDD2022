@@ -46,12 +46,12 @@ print(device)
 data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
-s_dataset_test = Subset(dataset, indices=range(len(dataset) // 20, len(dataset) // 20 + 400))
+s_dataset_test = Subset(dataset, indices=range(len(dataset) // 40, len(dataset) // 40 + 400))
 print("Length test data: ", len(s_dataset_test))
 
 
 # Create validation dataloaders
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=8, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=1, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
 
 print("Len dataloader test: ", len(dataloader_test))
 
