@@ -210,7 +210,6 @@ def test_step(model: torch.nn.Module,
     # Turn on inference context manager
     with torch.no_grad():
         with torch.inference_mode():
-            model= model.cuda()
             # Loop through DataLoader batches
             for batch, (X, y) in tqdm(enumerate(dataloader)):
 
