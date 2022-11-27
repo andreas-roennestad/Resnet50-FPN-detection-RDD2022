@@ -237,9 +237,9 @@ def test_step(model: torch.nn.Module,
                         if scores[s] > 0.1:     
 
                             line = [labels[s], " ", boxes[s][0], " ", boxes[s][1], " ", boxes[s][2], " ", boxes[s][3]]
-                            with open(predictions_file, 'w') as file:
+                            with open(predictions_file, 'w', newline='\n') as file:
                                 writer = csv.writer(file)
-                                writer.writerow(izip(f_name, line))
+                                writer.writerow([f_name, line])
                     
 
 
