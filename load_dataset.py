@@ -86,7 +86,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             name = [item[2] for item in batch]
             return [data, target, name]
         else:
-            data = [item for item in batch]
+            data = [item[0] for item in batch]
             name = [item[1] for item in batch]
             print(name, data)
             return [data, name]
