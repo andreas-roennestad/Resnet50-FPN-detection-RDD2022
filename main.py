@@ -67,10 +67,11 @@ print("Len dataloader training: ", len(dataloader))
 #print("Len dataloader test: ", len(dataloader_test))
 
 # Detect if we have a GPU available
-device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
 # Send the model to GPU
+model_ft = nn.DataParallel(model_ft)
 model_ft = model_ft.to(device)
 
 # Gather the parameters to be optimized/updated in this run. If we are
