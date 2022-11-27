@@ -14,6 +14,7 @@ import os
 import copy
 from tqdm import tqdm
 import csv
+from itertools import izip
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions.csv"
@@ -229,18 +230,17 @@ def test_step(model: torch.nn.Module,
                 # transport to cpu and save csvs
                 predictions = model(X)
                 print(predictions, '\n')
-                count = 0
                 for p in predictions:
                     
                     boxes, labels, scores = p['boxes'], p['labels'], p['scores']
                     for s in range(len(scores)):
                         if scores[s] > 0.1:     
-                            line = [f_name, " ", ]
+
+                            line = [labels[s], " ", boxes[s][0], " ", boxes[s][1], " ", boxes[s][2], " ", boxes[s][3]]
                             with open(predictions_file, 'w') as file:
                                 writer = csv.writer(file)
-                                writer.writerow(line)
+                                writer.writerow(izip(f_name, line))
                     
-                    count += 1
 
 
     # Adjust metrics to get average loss and accuracy per batch 
