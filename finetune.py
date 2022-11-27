@@ -217,7 +217,7 @@ def test_step(model: torch.nn.Module,
             
                 # Send data to target device
                 #print(X[0])
-                X = move_to(X, device)
+                X.to(device)
                 #y = move_to(y, device)
         
                 
