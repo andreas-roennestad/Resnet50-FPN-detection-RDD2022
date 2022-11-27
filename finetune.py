@@ -225,17 +225,16 @@ def test_step(model: torch.nn.Module,
                 X = move_to(X, device)
                 #y = move_to(y, device)
         
-                print(f_name)
                 # 1. Forward pass
                 # transport to cpu and save csvs
                 predictions = model(X)
                 print(predictions)
                 count = 0
                 for pred in predictions:
-                    p = pred.cpu()
+                    
                     boxes, labels, scores = p['boxes'], p['labels'], p['scores']
                     for s in range(len(scores)):
-                        if scores[s] > 0.1:
+                        if scores[s] > 0.1:     
                             line = [""]
                             with open(predictions_file, 'w') as file:
                                 writer = csv.writer(file)
