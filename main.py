@@ -27,7 +27,7 @@ num_classes = 5
 
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 4
+batch_size = 1
 
 # Number of epochs to train for
 num_epochs = 5
