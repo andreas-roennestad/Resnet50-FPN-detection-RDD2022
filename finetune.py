@@ -229,9 +229,9 @@ def test_step(model: torch.nn.Module,
                 # transport to cpu and save csvs
                 predictions = model(X)
                 print(predictions, '\n')
-                for p in predictions:
+                for p in range(len(predictions)):
                     f = f_name[p]
-                    boxes, labels, scores = p['boxes'], p['labels'], p['scores']
+                    boxes, labels, scores = predictions[p]['boxes'], predictions[p]['labels'], predictions[p]['scores']
                     for s in range(len(scores)):
                         if scores[s] > 0.1:     
                             b = boxes[s].cpu().numpy()
