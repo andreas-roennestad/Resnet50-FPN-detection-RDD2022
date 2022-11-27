@@ -27,7 +27,8 @@ num_classes = 5
 
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 8
+batch_size = 4
+
 # Number of epochs to train for
 num_epochs = 8
 
@@ -92,7 +93,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.005)
+optimizer_ft = optim.SGD(params_to_update, lr=0.0005)
 
 loss_fn = nn.CrossEntropyLoss()
 
