@@ -304,7 +304,7 @@ def test(model: torch.nn.Module,
 
     # Loop through training and testing steps for a number of epochs
     for epoch in tqdm(range(epochs)):
-        test_loss, test_acc = test_step(model=model,
+        test_loss = test_step(model=model,
             dataloader=test_dataloader,
             loss_fn=loss_fn,
             device=device)
