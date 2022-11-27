@@ -243,9 +243,9 @@ def test_step(model: torch.nn.Module,
                                     line+=str(b[i])
                                 else:
                                     line+=str(b[i]) + ' '
-                            with open(predictions_file, 'a', newline='') as file:
-                                writer = csv.writer(file)
-                                writer.writerow([f_name, line])
+                    with open(predictions_file, 'a', newline='') as file:
+                        writer = csv.writer(file)
+                        writer.writerow([f_name, line])
                     
 
 
