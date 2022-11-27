@@ -26,9 +26,9 @@ num_classes = 5
 
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 1
+batch_size = 16
 # Number of epochs to train for
-num_epochs = 16
+num_epochs = 10
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
@@ -60,7 +60,7 @@ print("Length training data: ", len(s_dataset))
 
 
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=False, num_workers=16, collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=False, num_workers=32, collate_fn=dataset.collate_fn)
 #dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
