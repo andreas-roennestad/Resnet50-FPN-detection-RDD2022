@@ -92,7 +92,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = torch.optim.Adam(model_ft, lr=0.001, weight_decay=0.001)#optim.SGD(params_to_update, lr=0.005, momentum=0.90, weight_decay=0.001)
+optimizer_ft = optim.SGD(params_to_update, lr=0.005, momentum=0.90, weight_decay=0.001)
 loss_fn = nn.CrossEntropyLoss()
 
 
