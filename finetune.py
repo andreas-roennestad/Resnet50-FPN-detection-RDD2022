@@ -97,7 +97,7 @@ def train_step(model: torch.nn.Module,
             loss.backward()
             optimizer.step()
 
-        if batch % 5 == 0:
+        if batch % 1 == 0:
             print(f"Iteration #{batch} loss: {loss}")
 
 
