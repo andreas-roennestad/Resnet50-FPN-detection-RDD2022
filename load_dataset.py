@@ -71,6 +71,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         else:
             del self.images[index]
             del self.targets[index]
+            print("e")
             return self.__getitem__(index)
 
 
