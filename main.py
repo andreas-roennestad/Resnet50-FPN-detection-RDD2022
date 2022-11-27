@@ -93,7 +93,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.0005)
+optimizer_ft = optim.SGD(params_to_update, lr=0.01)
 
 loss_fn = nn.CrossEntropyLoss()
 
