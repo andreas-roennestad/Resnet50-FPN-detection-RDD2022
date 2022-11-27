@@ -53,18 +53,18 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(0, len(dataset)//5-50))
-s_dataset_test = Subset(dataset, indices=range(len(dataset)//5-50, len(dataset)//5))
+s_dataset = Subset(dataset, indices=range(0, len(dataset)//5))
+#s_dataset_test = Subset(dataset, indices=range(len(dataset)//5, len(dataset)//5))
 print("Length training data: ", len(s_dataset))
-print("Length test data: ", len(s_dataset_test))
+#print("Length test data: ", len(s_dataset_test))
 
 
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
+#dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
-print("Len dataloader test: ", len(dataloader_test))
+#print("Len dataloader test: ", len(dataloader_test))
 
 # Detect if we have a GPU available
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")

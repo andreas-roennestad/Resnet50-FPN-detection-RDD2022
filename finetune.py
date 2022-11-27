@@ -253,14 +253,16 @@ def train(model: torch.nn.Module,
           optimizer: torch.optim.Optimizer,
           loss_fn: torch.nn.Module,
           epochs: int,
-          device: torch.device) -> Dict[str, List]:
+          device: torch.device,
+          test_model=False) -> Dict[str, List]:
     """Trains and tests a PyTorch model.
     """
     # Create empty results dictionary
     results = {"train_loss": [],
         "test_loss": [],
     }
-
+    test_loss = 0
+    train_loss= 0
     # Loop through training and testing steps for a number of epochs
     for epoch in tqdm(range(epochs)):
         train_loss = train_step(model=model,
@@ -268,7 +270,8 @@ def train(model: torch.nn.Module,
                                             loss_fn=loss_fn,
                                             optimizer=optimizer,
                                             device=device)
-        test_loss = test_step(model=model,
+        if test_model:
+            test_loss = test_step(model=model,
             dataloader=test_dataloader,
             loss_fn=loss_fn,
             device=device)
