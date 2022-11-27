@@ -40,7 +40,7 @@ else:
         model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
         num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
         model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
-        model_ft = model_ft.load_state_dict(torch.load(file), strict=False)
+        model_ft = model_ft.load_state_dict(torch.load(save_file), strict=False)
         print(model_ft)
 
 
@@ -55,7 +55,7 @@ print("Length test data: ", len(s_dataset_test))
 
 
 # Create validation dataloaders
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=1, shuffle=True, num_workers=0, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=1, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
 
 print("Len dataloader test: ", len(dataloader_test))
 
