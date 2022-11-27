@@ -214,7 +214,7 @@ def test_step(model: torch.nn.Module,
     with torch.no_grad():
         with torch.inference_mode():
             # Loop through DataLoader batches
-            for batch, (X, name) in tqdm(enumerate(dataloader)):
+            for batch, (X, f_name) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
@@ -223,7 +223,7 @@ def test_step(model: torch.nn.Module,
                 X = move_to(X, device)
                 #y = move_to(y, device)
         
-                print(name)
+                print(f_name)
                 # 1. Forward pass
                 # transport to cpu and save csvs
                 predictions = model(X)
