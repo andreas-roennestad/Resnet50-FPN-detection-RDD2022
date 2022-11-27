@@ -27,7 +27,7 @@ num_classes = 5
 
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 16
+batch_size = 12
 # Number of epochs to train for
 num_epochs = 8
 
@@ -53,8 +53,8 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 
 dataset = RoadCracksDetection(root_dir, 'train', transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(0, len(dataset)))
-s_dataset_test = Subset(dataset, indices=range(len(dataset), len(dataset)))
+s_dataset = Subset(dataset, indices=range(0, len(dataset)//4))
+s_dataset_test = Subset(dataset, indices=range(len(dataset)//4, len(dataset)//4+40))
 print("Length training data: ", len(s_dataset))
 #print("Length test data: ", len(s_dataset_test))
 
