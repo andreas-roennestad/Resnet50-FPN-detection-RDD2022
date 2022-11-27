@@ -159,6 +159,7 @@ def train_step(model: torch.nn.Module,
         y = move_to(y, device)
         # 1. Forward pass
         y_pred = model(X, y)
+        print("YPRED: ", y_pred)
         # 2. Calculate  and accumulate loss
         loss = y_pred['loss_classifier']#loss_fn(y_pred, y)
         train_loss += loss.item()
