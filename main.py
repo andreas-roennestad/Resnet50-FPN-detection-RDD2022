@@ -92,7 +92,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.005, momentum=0.90, weight_decay=0.001)
+optimizer_ft = optim.SGD(params_to_update, lr=0.0008, momentum=0.95, weight_decay=0.0008)
 loss_fn = nn.CrossEntropyLoss()
 
 
