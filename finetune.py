@@ -234,9 +234,10 @@ def test_step(model: torch.nn.Module,
                     boxes, labels, scores = p['boxes'], p['labels'], p['scores']
                     for s in range(len(scores)):
                         if scores[s] > 0.1:     
-
-                            line = [labels[s], " ", boxes[s][0], " ", boxes[s][1], " ", boxes[s][2], " ", boxes[s][3]]
-                            with open(predictions_file, 'w', newline='\n') as file:
+                            b = boxes[s].numpy()
+                            l = labels[s].numpy()
+                            line = [l[s], " ", b[0], " ", b[1], " ", b[2], " ", b[3]]
+                            with open(predictions_file, 'w', newline='') as file:
                                 writer = csv.writer(file)
                                 writer.writerow([f_name, line])
                     
