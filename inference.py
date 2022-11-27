@@ -41,7 +41,6 @@ else:
         num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
         model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
         model_ft.load_state_dict(torch.load(save_file, map_location='cpu'), strict=True)
-        print(model_ft)
 
 
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
