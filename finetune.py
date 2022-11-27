@@ -139,7 +139,7 @@ def test_step(model: torch.nn.Module,
         with torch.inference_mode():
             # Loop through DataLoader batches
             
-            for batch, (X, f_name) in tqdm(enumerate(dataloader)):
+            for batch, (X, y, f_name) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
@@ -153,8 +153,7 @@ def test_step(model: torch.nn.Module,
                 # transport to cpu and save csvs
                 predictions = model(X)
                 print("Pred: ", predictions, '\n')
-                print(predictions)
-                #print("Y: ", y)
+                print("Y: ", y, '\n')
                 for p in range(len(predictions)):
                     f = f_name[p]
                     boxes, labels, scores = predictions[p]['boxes'], predictions[p]['labels'], predictions[p]['scores']
