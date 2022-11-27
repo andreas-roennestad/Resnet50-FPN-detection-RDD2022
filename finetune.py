@@ -214,7 +214,7 @@ def test_step(model: torch.nn.Module,
     with torch.no_grad():
         with torch.inference_mode():
             # Loop through DataLoader batches
-            for batch, (X, f_name) in tqdm(enumerate(dataloader)):
+            for batch, (X) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
