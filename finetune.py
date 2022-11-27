@@ -224,7 +224,6 @@ def test_step(model: torch.nn.Module,
                 # 1. Forward pass
                 # transport to cpu and save csvs
                 predictions = model(X)
-                pred_cpu = predictions.cpu()
                 print(pred_cpu)
                 """for pred in pred_cpu:
                     boxes, labels, scores = pred['boxes'], pred['labels'], pred['scores']
