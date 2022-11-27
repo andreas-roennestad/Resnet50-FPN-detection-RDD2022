@@ -199,7 +199,7 @@ def test_step(model: torch.nn.Module,
         (0.0223, 0.8985)
     """
     # Put model in eval mode
-    model.eval() 
+    #model.eval() 
 
     # Setup test loss and test accuracy values
     test_loss, test_acc = 0, 0
