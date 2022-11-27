@@ -14,7 +14,6 @@ import os
 import copy
 from tqdm import tqdm
 import csv
-from itertools import izip
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions.csv"
