@@ -46,32 +46,15 @@ set_parameter_requires_grad(model_ft, feature_extract)
 
 num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
-print(model_ft)
 input_size = 225 #MODIFY
 data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 # Data augmentation and normalization for training
 # Just normalization for validation
-"""data_transforms = {
-    'train': transforms.Compose([
-        #transforms.RandomResizedCrop(input_size),
-        #transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Resize(input_size),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'target': transforms.Compose([
-        #transforms.Resize(input_size),
-        #transforms.CenterCrop(input_size),
-        #transforms.ToTensor(),
-        #transforms.Resize(input_size),
-        #transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-}"""
+
 
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
-#dataset_test = RoadCracksDetection(root_dir, "test", transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(len(dataset)//10*8))
-s_dataset_test = Subset(dataset, indices=range(len(dataset)//10*2, len(dataset)))
+s_dataset = Subset(dataset, indices=range(0, 100))
+s_dataset_test = Subset(dataset, indices=range(100, 130))
 print("Length training data: ", len(s_dataset))
 print("Length test data: ", len(s_dataset_test))
 
@@ -114,8 +97,8 @@ optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9)
 loss_fn = nn.CrossEntropyLoss()
 
 
-torch.manual_seed(42)
-torch.cuda.manual_seed(42)
+#torch.manual_seed(42)
+#torch.cuda.manual_seed(42)
 
 # Start the timer
 from timeit import default_timer as timer 
