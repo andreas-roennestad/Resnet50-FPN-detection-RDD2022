@@ -93,12 +93,12 @@ def train_step(model: torch.nn.Module,
             #train_loss += loss.item()
             loss = sum(loss for loss in loss_dict.values())
             train_loss += loss.item()
-
+            print(filename)
 
             loss.backward()
             optimizer.step()
 
-        if batch % 20 == 0:
+        if batch % 5 == 0:
             print(f"Iteration #{batch} loss: {loss}")
 
 
