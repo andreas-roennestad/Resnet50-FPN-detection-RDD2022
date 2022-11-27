@@ -84,7 +84,7 @@ def train_step(model: torch.nn.Module,
         optimizer.zero_grad()
         X = move_to(X, device)
         y = move_to(y, device)
-        with torch.set_grad_enabled():
+        with torch.set_grad_enabled(True):
             # 1. Forward pass
             print(y)
             loss_dict = model(X, y)
