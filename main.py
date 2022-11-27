@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torchvision
 from torchvision import models, transforms
-from finetune import set_parameter_requires_grad, train_model, train, test
+from finetune import set_parameter_requires_grad, train, test
 from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
@@ -12,6 +12,7 @@ from dataloader import create_dataloaders
 from torch.utils.data import Subset
 import pickle
 import os
+
 
 print("PyTorch Version: ",torch.__version__)
 print("Torchvision Version: ",torchvision.__version__)
