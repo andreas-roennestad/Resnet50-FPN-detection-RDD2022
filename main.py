@@ -19,7 +19,7 @@ print("Torchvision Version: ",torchvision.__version__)
 
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
-root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
+root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Japan/"
 save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 
 # Number of classes in the dataset
