@@ -226,27 +226,14 @@ def test_step(model: torch.nn.Module,
                 predictions = model(X)
                 pred_cpu = predictions.cpu()
                 print(pred_cpu)
-                for pred in pred_cpu:
+                """for pred in pred_cpu:
                     boxes, labels, scores = pred['boxes'], pred['labels'], pred['scores']
                     for s in range(len(scores)):
                         if scores[s] > 0.3:
                             line = []
                             with open(predictions_file, 'w') as file:
                                 writer = csv.writer(file)
-                                writer.writerow(data)
-
-
-        boxes (FloatTensor[N, 4]): the predicted boxes in [x1, y1, x2, y2] format, with 0 <= x1 < x2 <= W and 0 <= y1 < y2 <= H.
-
-        labels (Int64Tensor[N]): the predicted labels for each detection
-
-        scores (Tensor[N]): the scores of each detection
-
-
-
-                
-            
-
+                                writer.writerow(data)"""
 
 
     # Adjust metrics to get average loss and accuracy per batch 
