@@ -232,17 +232,15 @@ def test_step(model: torch.nn.Module,
                 for p in range(len(predictions)):
                     f = f_name[p]
                     boxes, labels, scores = predictions[p]['boxes'], predictions[p]['labels'], predictions[p]['scores']
+                    line = ""
+
                     for s in range(len(scores)):
                         if scores[s] > 0:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
-                            line = ""
                             line += str(l) + ' '
                             for i in range(len(b)):
-                                if i==len(b)-1:
-                                    line+=str(b[i])
-                                else:
-                                    line+=str(b[i]) + ' '
+                                line+=str(b[i]) + ' '
                             print(line)
                     with open(predictions_file, 'a', newline='') as file:
                         writer = csv.writer(file)
