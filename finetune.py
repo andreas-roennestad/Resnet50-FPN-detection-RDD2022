@@ -230,7 +230,7 @@ def test_step(model: torch.nn.Module,
                 predictions = model(X)
                 print(predictions, '\n')
                 for p in predictions:
-                    
+                    f = f_name[p]
                     boxes, labels, scores = p['boxes'], p['labels'], p['scores']
                     for s in range(len(scores)):
                         if scores[s] > 0.1:     
