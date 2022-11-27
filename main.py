@@ -54,14 +54,14 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
 s_dataset = Subset(dataset, indices=range(0, 100))
-s_dataset_test = Subset(dataset, indices=range(100, 130))
+s_dataset_test = Subset(dataset, indices=range(100, 110))
 print("Length training data: ", len(s_dataset))
 print("Length test data: ", len(s_dataset_test))
 
 
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=False, num_workers=0, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
 print("Len dataloader test: ", len(dataloader_test))
@@ -120,5 +120,6 @@ end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
 # End the timer and print out how long it took
 
-torch.save(model_ft, save_file)
+#torch.save(model_ft, save_file)
+torch.save(model_ft.state_dict(), save_file)
 print("Model trained. Saved to {0}".format(save_file))
