@@ -27,10 +27,10 @@ num_classes = 5
 
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 1
+batch_size = 8
 
 # Number of epochs to train for
-num_epochs = 5
+num_epochs = 3
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
@@ -53,8 +53,8 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 
 dataset = RoadCracksDetection(root_dir, 'train', transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(0, len(dataset)//10))
-s_dataset_test = Subset(dataset, indices=range(len(dataset)//10, len(dataset)//10+40))
+s_dataset = Subset(dataset, indices=range(0, len(dataset)//5))
+s_dataset_test = Subset(dataset, indices=range(len(dataset)//5, len(dataset)//5+40))
 print("Length training data: ", len(s_dataset))
 #print("Length test data: ", len(s_dataset_test))
 
@@ -92,7 +92,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.90, weight_decay=0.001)
+optimizer_ft = optim.SGD(params_to_update, lr=0.005, momentum=0.90, weight_decay=0.001)
 
 loss_fn = nn.CrossEntropyLoss()
 
