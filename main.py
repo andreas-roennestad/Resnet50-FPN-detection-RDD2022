@@ -40,7 +40,6 @@ model_ft =models.detection.fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_F
 print("Transforms: ", FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms())
 
 set_parameter_requires_grad(model_ft, feature_extract)      
-#print(model_ft)
 
 #print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
 
@@ -92,7 +91,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.0001)
+optimizer_ft = optim.SGD(params_to_update, lr=0.005)
 
 loss_fn = nn.CrossEntropyLoss()
 
