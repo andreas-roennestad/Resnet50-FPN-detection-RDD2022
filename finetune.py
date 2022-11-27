@@ -16,7 +16,7 @@ from tqdm import tqdm
 import csv
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
+predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions.csv"
 
 def set_parameter_requires_grad(model, feature_extracting):
     if feature_extracting:
@@ -184,7 +184,8 @@ def train_step(model: torch.nn.Module,
 def test_step(model: torch.nn.Module, 
               dataloader: torch.utils.data.DataLoader, 
               loss_fn: torch.nn.Module,
-              device: torch.device) -> Tuple[float, float]:
+              device: torch.device,
+              write_csv) -> Tuple[float, float]:
     """Tests a PyTorch model for a single epoch.
 
     Turns a target PyTorch model to "eval" mode and then performs
@@ -195,6 +196,7 @@ def test_step(model: torch.nn.Module,
         dataloader: A DataLoader instance for the model to be tested on.
         loss_fn: A PyTorch loss function to calculate loss on the test data.
         device: A target device to compute on (e.g. "cuda" or "cpu").
+        write_csv: must be run in single batches and no num_workers
 
     Returns:
         A tuple of testing loss and testing accuracy metrics.
@@ -212,7 +214,7 @@ def test_step(model: torch.nn.Module,
     with torch.no_grad():
         with torch.inference_mode():
             # Loop through DataLoader batches
-            for batch, X in tqdm(enumerate(dataloader)):
+            for batch, (X, name) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
@@ -220,18 +222,23 @@ def test_step(model: torch.nn.Module,
                 X = move_to(X, device)
                 #y = move_to(y, device)
         
-                
+                print(name)
                 # 1. Forward pass
                 # transport to cpu and save csvs
                 predictions = model(X)
-                """for pred in pred_cpu:
-                    boxes, labels, scores = pred['boxes'], pred['labels'], pred['scores']
+                print(predictions)
+                count = 0
+                for pred in predictions:
+                    p = pred.cpu()
+                    boxes, labels, scores = p['boxes'], p['labels'], p['scores']
                     for s in range(len(scores)):
-                        if scores[s] > 0.3:
-                            line = []
+                        if scores[s] > 0.1:
+                            line = [""]
                             with open(predictions_file, 'w') as file:
                                 writer = csv.writer(file)
-                                writer.writerow(data)"""
+                                writer.writerow(line)
+                    
+                    count += 1
 
 
     # Adjust metrics to get average loss and accuracy per batch 

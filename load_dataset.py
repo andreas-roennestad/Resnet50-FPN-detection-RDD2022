@@ -59,15 +59,13 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         if self.transforms is not None:
             img = self.transforms(img)
-        """if self.target_transform is not None:
-            target = self.target_transform(target)"""
         
         
         if target==None: 
             if self.image_set=='train':
-                return img, target
+                return img, target, self.images[index]
             else:
-                return img
+                return img, self.images[index]
         else:
             del self.data[index]
             return self.__getitem__(index)
@@ -81,10 +79,13 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         if self.image_set=='train':
             data = [item[0] for item in batch]
             target = [item[1] for item in batch]
-            return [data, target]
+            name = [item[3] for item in batch]
+            return [data, target, name]
         else:
             data = [item for item in batch]
-            return data
+            name = [item[3] for item in batch]
+
+            return [data, name]
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
