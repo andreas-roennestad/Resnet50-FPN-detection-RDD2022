@@ -98,7 +98,7 @@ def train_step(model: torch.nn.Module,
             loss.backward()
             optimizer.step()
 
-        if batch % 2 == 0:
+        if batch % 20 == 0:
             print(f"Iteration #{batch} loss: {loss}")
 
 
@@ -161,7 +161,7 @@ def test_step(model: torch.nn.Module,
                     line = ""
                     
                     for s in range(len(scores)):
-                        if scores[s] > 0.1:     
+                        if scores[s] > 0.05:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
