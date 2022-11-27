@@ -240,7 +240,7 @@ def test_step(model: torch.nn.Module,
                             line += str(l) + ' '
                             for i in range(len(b)):
                                 if i==len(b)-1:
-                                    line+=str([i])
+                                    line+=str(b[i])
                                 else:
                                     line+=str(b[i]) + ' '
                             with open(predictions_file, 'a', newline='') as file:
