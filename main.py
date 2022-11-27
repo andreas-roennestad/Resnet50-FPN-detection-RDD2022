@@ -25,7 +25,7 @@ save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 num_classes = 5
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 8
+batch_size = 32
 
 # Number of epochs to train for
 num_epochs = 3
@@ -60,7 +60,7 @@ print("Length training data: ", len(s_dataset))
 
 
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
 #dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
@@ -92,7 +92,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.96)
+optimizer_ft = optim.SGD(params_to_update, lr=0.0005, momentum=0.90)
 
 loss_fn = nn.CrossEntropyLoss()
 
