@@ -53,8 +53,8 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 
 dataset = RoadCracksDetection(root_dir, 'train', transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(0, len(dataset)//10-10))
-s_dataset_test = Subset(dataset, indices=range(len(dataset)//10-10, len(dataset)//10))
+s_dataset = Subset(dataset, indices=range(0, len(dataset)//10-30))
+s_dataset_test = Subset(dataset, indices=range(len(dataset)//10-30, len(dataset)//10))
 print("Length training data: ", len(s_dataset))
 #print("Length test data: ", len(s_dataset_test))
 
@@ -111,7 +111,7 @@ results = train(model=model_ft,
                        optimizer=optimizer_ft,
                        loss_fn=loss_fn,
                        epochs=num_epochs,
-                       device=device)
+                       device=device, test_model=True)
 
 # Train and evaluate
 #model_ft, hist = train_model(model_ft, dataloader, loss_fn, optimizer_ft, num_epochs=num_epochs)
