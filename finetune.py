@@ -153,7 +153,6 @@ def train_step(model: torch.nn.Module,
     # Loop through data loader data batches
     for batch, (X, y, filename) in tqdm(enumerate(dataloader)):
         
-        optimizer.zero_grad()
         # Send data to target device
         #print(X[0])
         X = move_to(X, device)
@@ -165,11 +164,12 @@ def train_step(model: torch.nn.Module,
         #train_loss += loss.item()
         loss = sum(loss for loss in loss_dict.values())
         train_loss += loss.item()
-        loss.backward()
-        optimizer.step()
+
+        optimizer.zero_grad()
 
         loss.backward()
         optimizer.step()
+
         if batch % 10 == 0:
             print(f"Iteration #{batch} loss: {loss}")
 
