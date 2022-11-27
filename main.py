@@ -53,14 +53,14 @@ data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
 
 
 dataset = RoadCracksDetection(root_dir, "train", transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(0, len(dataset)//5))
+s_dataset = Subset(dataset, indices=range(0, len(dataset)//10))
 #s_dataset_test = Subset(dataset, indices=range(len(dataset)//5, len(dataset)//5))
 print("Length training data: ", len(s_dataset))
 #print("Length test data: ", len(s_dataset_test))
 
 
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=8, collate_fn=dataset.collate_fn)
 #dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
@@ -92,7 +92,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.005, momentum=0.96)
+optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.96)
 
 loss_fn = nn.CrossEntropyLoss()
 
