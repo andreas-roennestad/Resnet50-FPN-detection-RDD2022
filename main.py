@@ -36,11 +36,11 @@ num_epochs = 30
 #   when True we only update the reshaped layer params
 feature_extract = True
 
-model_ft = models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT)
+model_ft = models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT, trainable_backbone_layers=1)
 
 print("Transforms: ", FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms())
 
-set_parameter_requires_grad(model_ft, feature_extract)      
+#set_parameter_requires_grad(model_ft, feature_extract)      
 
 #print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
 
