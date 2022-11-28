@@ -27,10 +27,10 @@ num_classes = 5
 
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 1
+batch_size = 4
 
 # Number of epochs to train for
-num_epochs = 30
+num_epochs = 24
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
@@ -42,8 +42,6 @@ print("Transforms: ", FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms())
 
 #set_parameter_requires_grad(model_ft, feature_extract)      
 
-#print(model_ft.roi_heads.box_head, model_ft.roi_heads.box_predictor)
-
 num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
 print(model_ft)
@@ -54,15 +52,15 @@ data_transforms = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms()
 
 
 dataset = RoadCracksDetection(root_dir, 'train', transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(0, len(dataset)//20-20))
-s_dataset_test = Subset(dataset, indices=range(len(dataset)//20-20, len(dataset)//20))
+s_dataset = Subset(dataset, indices=range(0, len(dataset)))
+#s_dataset_test = Subset(dataset, indices=range(len(dataset)//20, len(dataset)//20))
 print("Length training data: ", len(s_dataset))
 #print("Length test data: ", len(s_dataset_test))
 
 
 # Create training and validation dataloaders
 dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
+#dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
 #print("Len dataloader test: ", len(dataloader_test))
@@ -107,12 +105,12 @@ start_time = timer()
 # Setup training and save the results
 results = train(model=model_ft,
                        train_dataloader=dataloader,
-                       test_dataloader=dataloader_test,
+                       test_dataloader=None,
                        optimizer=optimizer_ft,
                        loss_fn=loss_fn,
                        epochs=num_epochs,
                        device=device, 
-                       test_model=True,
+                       test_model=False,
                        )
 
 # Train and evaluate

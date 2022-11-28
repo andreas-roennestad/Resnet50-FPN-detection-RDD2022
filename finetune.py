@@ -2,6 +2,7 @@ from __future__ import print_function
 from __future__ import division
 
 from load_dataset import RoadCracksDetection
+from torchmetrics.detection.mean_ap import MeanAveragePrecision
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -110,7 +111,8 @@ def test_step(model: torch.nn.Module,
               dataloader: torch.utils.data.DataLoader, 
               loss_fn: torch.nn.Module,
               device: torch.device,
-              write_csv=True) -> Tuple[float, float]:
+              write_csv=True,
+              metric=mean_ap.MeanAveragePrecision) -> Tuple[float, float]:
     """Tests a PyTorch model for a single epoch.
 
     Turns a target PyTorch model to "eval" mode and then performs
@@ -134,13 +136,14 @@ def test_step(model: torch.nn.Module,
 
     # Setup test loss and test accuracy values
     test_loss = 0
+    metric = MeanAveragePrecision(ioy_thresholds=[0.5, 0.7, 0.95], class_metrics=True)
 
     # Turn on inference context manager
     with torch.no_grad():
         with torch.inference_mode():
             # Loop through DataLoader batches
             
-            for batch, (X, f_name) in tqdm(enumerate(dataloader)):
+            for batch, (X, y, f_name) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
@@ -152,6 +155,7 @@ def test_step(model: torch.nn.Module,
                 # 1. Forward pass
                 # transport to cpu and save csvs
                 predictions = model(X)
+                metric.update(predictions, y)
                 #print("Pred: ", predictions, '\n')
                 #print("y: ", y, '\n')
                 for p in range(len(predictions)):
@@ -160,7 +164,7 @@ def test_step(model: torch.nn.Module,
                     line = ""
                     
                     for s in range(len(scores)):
-                        if scores[s] > 0.1:     
+                        if scores[s] > 0.3:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
@@ -171,7 +175,7 @@ def test_step(model: torch.nn.Module,
                         writer.writerow([f, line])
                     
 
-
+    print("MAP: ", metric.compute())
     # Adjust metrics to get average loss and accuracy per batch 
     test_loss = test_loss / len(dataloader)
     return test_loss
@@ -195,12 +199,14 @@ def train(model: torch.nn.Module,
     test_loss = 0
     train_loss= 0
     # Loop through training and testing steps for a number of epochs
+
     for epoch in tqdm(range(epochs)):
         train_loss = train_step(model=model,
                                             dataloader=train_dataloader,
                                             loss_fn=loss_fn,
                                             optimizer=optimizer,
-                                            device=device
+                                            device=device,
+                                            metric=metric
                                             )
         if test_model:
             test_loss = test_step(model=model,
