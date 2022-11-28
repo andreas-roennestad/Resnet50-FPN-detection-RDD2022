@@ -61,8 +61,8 @@ print("Length training data: ", len(s_dataset))
 
 
 # Create training and validation dataloaders
-dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
-dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
 #print("Len dataloader test: ", len(dataloader_test))
@@ -93,7 +93,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.0008, momentum=0.95, weight_decay=0.0008)
+optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9, weight_decay=0.001)
 loss_fn = nn.CrossEntropyLoss()
 
 
