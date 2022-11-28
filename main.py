@@ -27,7 +27,7 @@ num_classes = 5
 
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 6
+batch_size = 4
 
 # Number of epochs to train for
 num_epochs = 30
@@ -36,7 +36,7 @@ num_epochs = 30
 #   when True we only update the reshaped layer params
 feature_extract = True
 
-model_ft =models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT)
+model_ft = models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT)
 
 print("Transforms: ", FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms())
 
