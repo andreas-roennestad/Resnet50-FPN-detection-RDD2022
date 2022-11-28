@@ -111,8 +111,7 @@ def test_step(model: torch.nn.Module,
               dataloader: torch.utils.data.DataLoader, 
               loss_fn: torch.nn.Module,
               device: torch.device,
-              write_csv=True,
-              metric=mean_ap.MeanAveragePrecision) -> Tuple[float, float]:
+              write_csv=True) -> Tuple[float, float]:
     """Tests a PyTorch model for a single epoch.
 
     Turns a target PyTorch model to "eval" mode and then performs
@@ -154,7 +153,7 @@ def test_step(model: torch.nn.Module,
                 # 1. Forward pass
                 # transport to cpu and save csvs
                 predictions = model(X)
-                metric.update(predictions, y)
+                #metric.update(predictions, y)
                 #print("Pred: ", predictions, '\n')
                 #print("y: ", y, '\n')
                 for p in range(len(predictions)):
@@ -245,8 +244,7 @@ def test(model: torch.nn.Module,
         test_loss = test_step(model=model,
             dataloader=test_dataloader,
             loss_fn=loss_fn,
-            device=device,
-            metric=metric)
+            device=device)
 
         # Print out what's happening
         print(
