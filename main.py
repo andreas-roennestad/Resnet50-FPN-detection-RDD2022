@@ -37,7 +37,7 @@ num_epochs = 3
 feature_extract = True
 
 model_ft =models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT)
-
+print(model_ft)
 
 print("Transforms: ", FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms())
 
