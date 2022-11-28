@@ -7,7 +7,6 @@ from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train, test
 from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_V2_Weights
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-from torchmetrics.detection.mean_ap import MeanAveragePrecision
 from load_dataset import RoadCracksDetection
 from dataloader import create_dataloaders
 from torch.utils.data import Subset
@@ -21,11 +20,10 @@ print("Torchvision Version: ",torchvision.__version__)
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
 root_dir = "/cluster/work/andronn/VisualIntelligence/Norway/"
-save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model1.pkl"
+save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 
 # Number of classes in the dataset
 num_classes = 5
-
 
 
 # Batch size for training (change depending on how much memory you have)
