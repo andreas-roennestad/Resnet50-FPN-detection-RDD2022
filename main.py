@@ -20,7 +20,7 @@ print("Torchvision Version: ",torchvision.__version__)
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
 root_dir = "/cluster/work/andronn/VisualIntelligence/Norway/"
-save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
+save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model_1.pkl"
 
 # Number of classes in the dataset
 num_classes = 5
@@ -30,7 +30,7 @@ num_classes = 5
 batch_size = 1
 
 # Number of epochs to train for
-num_epochs = 24
+num_epochs = 48
 
 # Flag for feature extracting. When False, we finetune the whole model,
 #   when True we only update the reshaped layer params
@@ -52,7 +52,7 @@ data_transforms = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms()
 
 
 dataset = RoadCracksDetection(root_dir, 'train', transforms=data_transforms)
-s_dataset = Subset(dataset, indices=range(0, len(dataset)//4))
+s_dataset = Subset(dataset, indices=range(0, len(dataset)))
 #s_dataset_test = Subset(dataset, indices=range(len(dataset)//20, len(dataset)//20))
 print("Length training data: ", len(s_dataset))
 #print("Length test data: ", len(s_dataset_test))
