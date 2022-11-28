@@ -160,7 +160,7 @@ def test_step(model: torch.nn.Module,
                     line = ""
                     
                     for s in range(len(scores)):
-                        if scores[s] > 0:     
+                        if scores[s] > 0.1:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
