@@ -98,7 +98,7 @@ def train_step(model: torch.nn.Module,
 
         if batch % 30 == 0:
             print(f"Iteration #{batch} loss: {loss}")
-            print(loss_dict)
+            #print(loss_dict)
 
 
 
@@ -140,7 +140,7 @@ def test_step(model: torch.nn.Module,
         with torch.inference_mode():
             # Loop through DataLoader batches
             
-            for batch, (X, f_name) in tqdm(enumerate(dataloader)):
+            for batch, (X, y, f_name) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
