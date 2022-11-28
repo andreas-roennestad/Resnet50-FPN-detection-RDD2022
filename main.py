@@ -37,7 +37,6 @@ num_epochs = 3
 feature_extract = True
 
 model_ft =models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT)
-print(model_ft)
 
 print("Transforms: ", FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms())
 
@@ -47,6 +46,8 @@ set_parameter_requires_grad(model_ft, feature_extract)
 
 num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
+print(model_ft)
+
 data_transforms = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms()
 # Data augmentation and normalization for training
 # Just normalization for validation
