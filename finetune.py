@@ -141,7 +141,7 @@ def test_step(model: torch.nn.Module,
         with torch.inference_mode():
             # Loop through DataLoader batches
             
-            for batch, (X, y, f_name) in tqdm(enumerate(dataloader)):
+            for batch, (X, f_name) in tqdm(enumerate(dataloader)):
 
             
                 # Send data to target device
@@ -173,7 +173,7 @@ def test_step(model: torch.nn.Module,
                         writer.writerow([f, line])
                     
 
-    print("MAP: ", metric.compute())
+    #print("MAP: ", metric.compute())
     # Adjust metrics to get average loss and accuracy per batch 
     test_loss = test_loss / len(dataloader)
     return test_loss
@@ -236,7 +236,7 @@ def test(model: torch.nn.Module,
     results = {
         "test_loss": [],
     }
-    metric = MeanAveragePrecision(ioy_thresholds=[0.5, 0.7, 0.95], class_metrics=True)
+    #metric = MeanAveragePrecision(ioy_thresholds=[0.5, 0.7, 0.95], class_metrics=True)
 
 
     # Loop through training and testing steps for a number of epochs
