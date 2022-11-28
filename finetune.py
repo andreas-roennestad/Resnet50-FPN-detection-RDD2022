@@ -136,7 +136,6 @@ def test_step(model: torch.nn.Module,
 
     # Setup test loss and test accuracy values
     test_loss = 0
-    metric = MeanAveragePrecision(ioy_thresholds=[0.5, 0.7, 0.95], class_metrics=True)
 
     # Turn on inference context manager
     with torch.no_grad():
@@ -206,7 +205,6 @@ def train(model: torch.nn.Module,
                                             loss_fn=loss_fn,
                                             optimizer=optimizer,
                                             device=device,
-                                            metric=metric
                                             )
         if test_model:
             test_loss = test_step(model=model,
@@ -239,13 +237,16 @@ def test(model: torch.nn.Module,
     results = {
         "test_loss": [],
     }
+    metric = MeanAveragePrecision(ioy_thresholds=[0.5, 0.7, 0.95], class_metrics=True)
+
 
     # Loop through training and testing steps for a number of epochs
     for epoch in tqdm(range(epochs)):
         test_loss = test_step(model=model,
             dataloader=test_dataloader,
             loss_fn=loss_fn,
-            device=device)
+            device=device,
+            metric=metric)
 
         # Print out what's happening
         print(
@@ -255,6 +256,7 @@ def test(model: torch.nn.Module,
 
         # Update results dictionary
         results["test_loss"].append(test_loss)
+
 
     # Return the filled results at the end of the epochs
     return results
