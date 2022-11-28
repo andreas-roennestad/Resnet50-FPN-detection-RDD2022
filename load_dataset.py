@@ -63,13 +63,12 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         
         if self.image_set=='test':
             return img, self.images_filenames[index]
-        if self.image_set=='train' and not len(target)==0: 
+        if not len(target)==0: 
             if self.image_set=='train':
                 return img, target, self.images_filenames[index]
             else:
                 return img, self.images_filenames[index]
         else:
-            print("e")
             del self.images[index]
             del self.targets[index]
             return self.__getitem__(index)
@@ -91,7 +90,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
         in_dict = xml_out_dict['annotation']
-        out_dict = {'labels': [], 'boxes': []}#, 'image_id': []}
+        out_dict = {'boxes': [], 'labels': [], 'image_id': []}
         
         boxes = []
         labels = []
@@ -108,17 +107,17 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
                     obj_class = 4 # pothole
 
             labels.append(obj_class)
-            boxes.append([int(float(in_dict['object'][i]['bndbox']['xmin'])), int(float(in_dict['object'][i]['bndbox']['ymin'])),
-             int(float(in_dict['object'][i]['bndbox']['xmax'])), int(float(in_dict['object'][i]['bndbox']['ymax']))])
+            boxes.append([float(in_dict['object'][i]['bndbox']['xmin']), float(in_dict['object'][i]['bndbox']['ymin']),
+            float(in_dict['object'][i]['bndbox']['xmax']), float(in_dict['object'][i]['bndbox']['ymax'])])
         
         labels = torch.as_tensor(labels, dtype=torch.int64)
         boxes = torch.as_tensor(boxes, dtype=torch.float32)
-        #image_id = torch.as_tensor(int(in_dict['filename'].replace('.jpg', '')[-6:]), dtype=torch.int64)
+        image_id = torch.as_tensor(int(in_dict['filename'].replace('.jpg', '')[-6:]), dtype=torch.int64)
         if len(in_dict['object']) == 0:
             boxes = torch.zeros((0, 4), dtype=torch.float32)
         out_dict["boxes"] = boxes
         out_dict["labels"] = labels
-        #out_dict["image_id"] = image_id
+        out_dict["image_id"] = image_id
 
 
         return out_dict

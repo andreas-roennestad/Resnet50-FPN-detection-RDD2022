@@ -19,7 +19,7 @@ print("Torchvision Version: ",torchvision.__version__)
 
 # Top level data directory. Here we assume the format of the directory conforms
 #   to the ImageFolder structure
-root_dir = "/cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway/"
+root_dir = "/cluster/work/andronn/VisualIntelligence/Norway/"
 save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model.pkl"
 
 # Number of classes in the dataset
@@ -93,7 +93,7 @@ else:
             print("\t",name)
 
 # Observe that all parameters are being optimized
-optimizer_ft = optim.SGD(params_to_update, lr=0.005, momentum=0.9, weight_decay=0.0005)
+optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9, weight_decay=0.0005)
 loss_fn = nn.CrossEntropyLoss()
 
 
