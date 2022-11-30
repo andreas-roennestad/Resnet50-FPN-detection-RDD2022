@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions2.csv"
+predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions3.csv"
 font_file = "/usr/share/fonts/liberation-mono/LiberationMono-Italic.ttf"
 def set_parameter_requires_grad(model, feature_extracting):
     if feature_extracting:
@@ -72,7 +72,6 @@ def train_step(model: torch.nn.Module,
         A tuple of training loss and training accuracy metrics.
         In the form (train_loss, train_accuracy). For example:
 
-        (0.1112, 0.8743)
     """
     # Put model in train mode
     model.train()
@@ -167,7 +166,7 @@ def test_step(model: torch.nn.Module,
                     
                     for s in range(len(scores)):
                         #print(scores[s])
-                        if scores[s] > 0.3:     
+                        if scores[s] > 0.7:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
