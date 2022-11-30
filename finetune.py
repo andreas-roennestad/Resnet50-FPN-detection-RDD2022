@@ -165,7 +165,7 @@ def test_step(model: torch.nn.Module,
                     
                     for s in range(len(scores)):
                         #print(scores[s])
-                        if scores[s] > 0.1:     
+                        if scores[s] > 0.3:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
@@ -178,21 +178,21 @@ def test_step(model: torch.nn.Module,
                         img = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p]))
                         draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
-                            if scores[s] > 0.1:     
+                            if scores[s] > 0.3:     
                                 b = boxes[s].cpu().numpy()
                                 l = labels[s].cpu().numpy() 
                                 match l:
-                                    case 0:
+                                    case 1:
                                         draw.rectangle(b, outline="green")
                                         draw.text((b[0],b[3]), "D00")
-                                    case 1:
+                                    case 2:
                                         draw.rectangle(b, outline="red")
                                         draw.text((b[0],b[3]), "D10")
 
-                                    case 2:
+                                    case 3:
                                         draw.rectangle(b, outline="orange")
                                         draw.text((b[0],b[3]), "D20")
-                                    case 3:
+                                    case 4:
                                         draw.rectangle(b, outline="pink")
                                         draw.text((b[0],b[3]), "D40")
                         img.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name[p]))
