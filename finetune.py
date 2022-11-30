@@ -178,7 +178,7 @@ def test_step(model: torch.nn.Module,
                         img = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p]))
                         draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
-                            if scores[s] > 0.3:     
+                            if scores[s] > 0.5:     
                                 b = boxes[s].cpu().numpy()
                                 l = labels[s].cpu().numpy() 
                                 match l:
@@ -193,7 +193,7 @@ def test_step(model: torch.nn.Module,
                                         draw.rectangle(b, outline="orange",width=6)
                                         draw.text((b[0],b[3]), "D20", stroke_fill=6)
                                     case 4:
-                                        draw.rectangle(b, outline="pink",width=6    )
+                                        draw.rectangle(b, outline="pink",width=6)
                                         draw.text((b[0],b[3]), "D40", stroke_fill=6)
                         img.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name[p]))
 
