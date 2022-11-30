@@ -3,14 +3,16 @@
 
 
 ### Samples
-The following samples were predicted by the model after training for 40 epochs on the first 1/10th of the Norway train-dataset
+The following samples were predicted by the model after training for 40 epochs on the first 1/10th of the Norway train-dataset. The labels and their corresponding bounding box colors are: D00(longitudinal cracks) - green, D10(transverse cracks) - red, D20(alligator cracks) - orange, D40(potholes) - pink.
 
-![Sample: Norway_008163.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008163.jpg = 1280x720)
+In the following images the model demonstrates learning the features of the different classes:
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008442.jpg" width="1280" height="720" />
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008340.jpg" width="1280" height="720" />
 
-![Sample: Norway_008321.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008321.jpg = 1280x720)
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008512.jpg" width="1280" height="720" />
 
-![Sample: Norway_008347.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008347.jpg = 1280x720)
+Alligator cracks are detected even when not highly represented in dataset:
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008528.jpg" width="1280" height="720" />
 
-![Sample: Norway_008361.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008361.jpg = 1280x720)
-
-
+Shadows are sometimes hard to distinguish from road-damage in visual images:
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008181.jpg" width="1280" height="720" />
