@@ -183,18 +183,18 @@ def test_step(model: torch.nn.Module,
                                 l = labels[s].cpu().numpy() 
                                 match l:
                                     case 1:
-                                        draw.rectangle(b, outline="green",width=3)
-                                        draw.text((b[0],b[3]), "D00", stroke_fill=3)
+                                        draw.rectangle(b, outline="green",width=6)
+                                        draw.text((b[0],b[3]), "D00", stroke_fill=6)
                                     case 2:
-                                        draw.rectangle(b, outline="red",width=3)
-                                        draw.text((b[0],b[3]), "D10", stroke_fill=3)
+                                        draw.rectangle(b, outline="red",width=6)
+                                        draw.text((b[0],b[3]), "D10", stroke_fill=6)
 
                                     case 3:
-                                        draw.rectangle(b, outline="orange",width=3)
-                                        draw.text((b[0],b[3]), "D20",width=3, stroke_fill=3)
+                                        draw.rectangle(b, outline="orange",width=6)
+                                        draw.text((b[0],b[3]), "D20", stroke_fill=6)
                                     case 4:
-                                        draw.rectangle(b, outline="pink",width=3    )
-                                        draw.text((b[0],b[3]), "D40", stroke_fill=3)
+                                        draw.rectangle(b, outline="pink",width=6    )
+                                        draw.text((b[0],b[3]), "D40", stroke_fill=6)
                         img.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name[p]))
 
 
