@@ -16,4 +16,4 @@ The following samples were predicted by the model after training for 40 epochs o
 ![Sample: Norway_008442.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008442.jpg = 1280x720)
 
 
-
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008181.jpg" width="1280" height="720" />
