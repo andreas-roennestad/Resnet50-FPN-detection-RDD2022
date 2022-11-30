@@ -5,7 +5,7 @@ import torch.optim as optim
 import torchvision
 from torchvision import models, transforms
 from finetune import set_parameter_requires_grad, train,test
-from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
+from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_V2_Weights
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
 from dataloader import create_dataloaders
@@ -25,7 +25,7 @@ save_file = "/cluster/work/andronn/VisualIntelligence/resnet_fpn_model_2.pkl"
 num_classes = 5
 
 # Batch size for training (change depending on how much memory you have)
-batch_size = 1
+batch_size = 4
 
 # Number of epochs to train for
 num_epochs = 1
@@ -48,7 +48,7 @@ print("Loaded model from ", save_file)
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 print(device)
 
-data_transforms = FasterRCNN_ResNet50_FPN_Weights.DEFAULT.transforms()
+data_transforms = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms()
 
 dataset_test = RoadCracksDetection(root_dir, "test", transforms=data_transforms)
 #s_dataset_test = Subset(dataset, indices=range(len(dataset)//10*8, len(dataset)))
@@ -56,7 +56,7 @@ print("Length test data: ", len(dataset_test))
 
 
 # Create validation dataloaders
-dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=1, shuffle=False, num_workers=0, collate_fn=dataset_test.collate_fn)
+dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=batch_size, shuffle=False, num_workers=4, collate_fn=dataset_test.collate_fn)
 print("Len dataloader test: ", len(dataloader_test))
 
 
