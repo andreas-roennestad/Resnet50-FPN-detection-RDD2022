@@ -5,4 +5,4 @@
 ### Samples
 The following samples were predicted by the model after training for 40 epochs on the first 1/10th of the Norway train-dataset
 
-![Sample: Norway_008321.jpg](miniProject-TDT17/predicted_images/Norway_008321.jpg)
+![Sample: Norway_008163.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008163.jpg)
