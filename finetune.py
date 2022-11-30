@@ -15,6 +15,8 @@ import os
 import copy
 from tqdm import tqdm
 import csv
+from PIL import Image, ImageDraw
+
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions.csv"
@@ -111,7 +113,8 @@ def test_step(model: torch.nn.Module,
               dataloader: torch.utils.data.DataLoader, 
               loss_fn: torch.nn.Module,
               device: torch.device,
-              write_csv=True) -> Tuple[float, float]:
+              write_csv=True,
+              draw_bbs=False) -> Tuple[float, float]:
     """Tests a PyTorch model for a single epoch.
 
     Turns a target PyTorch model to "eval" mode and then performs
@@ -162,7 +165,7 @@ def test_step(model: torch.nn.Module,
                     line = ""
                     
                     for s in range(len(scores)):
-                        print(scores[s])
+                        #print(scores[s])
                         if scores[s] > 0.1:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
@@ -172,6 +175,29 @@ def test_step(model: torch.nn.Module,
                     with open(predictions_file, 'a', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerow([f, line])
+                    if draw_bbs:
+                        draw = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name))  
+                        for s in range(len(scores)):
+                            if scores[s] > 0.1:     
+                                b = boxes[s].cpu().numpy()
+                                l = labels[s].cpu().numpy() 
+                                match l:
+                                    case 0:
+                                        draw.rectangle(b, outline="green")
+                                        draw.text((b[0],b[3]), "D00")
+                                    case 1:
+                                        draw.rectangle(b, outline="red")
+                                        draw.text((b[0],b[3]), "D10")
+
+                                    case 2:
+                                        draw.rectangle(b, outline="orange")
+                                        draw.text((b[0],b[3]), "D20")
+                                    case 3:
+                                        draw.rectangle(b, outline="pink")
+                                        draw.text((b[0],b[3]), "D40")
+                        draw.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name))
+
+
                     
 
     #print("MAP: ", metric.compute())
@@ -245,7 +271,8 @@ def test(model: torch.nn.Module,
         test_loss = test_step(model=model,
             dataloader=test_dataloader,
             loss_fn=loss_fn,
-            device=device)
+            device=device,
+            draw_bbs=True)
 
         # Print out what's happening
         print(
