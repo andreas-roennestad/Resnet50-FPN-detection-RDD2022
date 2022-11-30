@@ -3,7 +3,7 @@
 
 
 ### Samples
-The following samples were predicted by the model after training for 40 epochs on the first 1/10th of the Norway train-dataset
+The following samples were predicted by the model after training for 40 epochs on the first 1/10th of the Norway train-dataset. The labels and their corresponding bounding box colors are: D00(longitudinal cracks) - green, D10(transverse cracks) - red, D20(alligator cracks) - orange, D40(potholes) - pink.
 
 
 <img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008442.jpg" width="1280" height="720" />
