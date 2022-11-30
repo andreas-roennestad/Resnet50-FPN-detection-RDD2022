@@ -5,12 +5,15 @@
 ### Samples
 The following samples were predicted by the model after training for 40 epochs on the first 1/10th of the Norway train-dataset
 
-![Sample: Norway_008163.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008163.jpg = 1280x720)
+![Sample: Norway_008181.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008181.jpg = 1280x720)
 
-![Sample: Norway_008321.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008321.jpg = 1280x720)
+![Sample: Norway_008340.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008340.jpg = 1280x720)
 
-![Sample: Norway_008347.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008347.jpg = 1280x720)
+![Sample: Norway_008512.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008512.jpg = 1280x720)
 
-![Sample: Norway_008361.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008361.jpg = 1280x720)
+![Sample: Norway_008528.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008528.jpg = 1280x720)
+
+![Sample: Norway_008442.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008442.jpg = 1280x720)
+
 
 
