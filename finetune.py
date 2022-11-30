@@ -15,7 +15,7 @@ import os
 import copy
 from tqdm import tqdm
 import csv
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -176,6 +176,7 @@ def test_step(model: torch.nn.Module,
                         writer.writerow([f, line])
                     if draw_bbs:
                         img = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p]))
+                        font = ImageFont.truetype("arial.ttf", 7)
                         draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
                             if scores[s] > 0.6:     
@@ -184,17 +185,17 @@ def test_step(model: torch.nn.Module,
                                 match l:
                                     case 1:
                                         draw.rectangle(b, outline="green",width=6)
-                                        draw.text((b[0],b[3]), "D00", stroke_width=6)
+                                        draw.text((b[0],b[3]), "D00", font=font)
                                     case 2:
                                         draw.rectangle(b, outline="red",width=6)
-                                        draw.text((b[0],b[3]), "D10", stroke_width=6)
+                                        draw.text((b[0],b[3]), "D10",  font=font)
 
                                     case 3:
                                         draw.rectangle(b, outline="orange",width=6)
-                                        draw.text((b[0],b[3]), "D20", stroke_width=6)
+                                        draw.text((b[0],b[3]), "D20",  font=font)
                                     case 4:
                                         draw.rectangle(b, outline="pink",width=6)
-                                        draw.text((b[0],b[3]), "D40", stroke_width=6)
+                                        draw.text((b[0],b[3]), "D40",  font=font)
                         img.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name[p]))
 
 
