@@ -175,7 +175,8 @@ def test_step(model: torch.nn.Module,
                         writer = csv.writer(file)
                         writer.writerow([f, line])
                     if draw_bbs:
-                        draw = ImageDraw.Draw(Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p])))
+                        img = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p]))
+                        draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
                             if scores[s] > 0.1:     
                                 b = boxes[s].cpu().numpy()
@@ -194,7 +195,7 @@ def test_step(model: torch.nn.Module,
                                     case 3:
                                         draw.rectangle(b, outline="pink")
                                         draw.text((b[0],b[3]), "D40")
-                        draw.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name))
+                        img.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name))
 
 
                     
