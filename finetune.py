@@ -195,7 +195,7 @@ def test_step(model: torch.nn.Module,
                                     case 3:
                                         draw.rectangle(b, outline="pink")
                                         draw.text((b[0],b[3]), "D40")
-                        img.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name))
+                        img.save("/cluster/work/andronn/VisualIntelligence/predicted_images/{0}".format(f_name), format='jpg')
 
 
                     
