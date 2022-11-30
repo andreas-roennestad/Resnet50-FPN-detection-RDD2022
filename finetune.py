@@ -176,7 +176,7 @@ def test_step(model: torch.nn.Module,
                         writer.writerow([f, line])
                     if draw_bbs:
                         img = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p]))
-                        font = ImageFont.truetype("arial.ttf", 7)
+                        font = ImageFont.truetype("arial.ttf", 15)
                         draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
                             if scores[s] > 0.6:     
