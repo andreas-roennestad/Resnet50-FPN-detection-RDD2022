@@ -19,8 +19,7 @@ from PIL import Image, ImageDraw
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions.csv"
-
+predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions2.csv"
 def set_parameter_requires_grad(model, feature_extracting):
     if feature_extracting:
         for param in model.parameters():
