@@ -15,5 +15,10 @@ The following samples were predicted by the model after training for 40 epochs o
 
 ![Sample: Norway_008442.jpg](https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008442.jpg = 1280x720)
 
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008181.jpg" width="1280" height="720" />
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008340.jpg" width="1280" height="720" />
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008512.jpg" width="1280" height="720" />
+<img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008528.jpg" width="1280" height="720" />
 
+Shadows are sometimes hard to distinguish from road-damage in visual images:
 <img src="https://github.com/andreas-roennestad/miniProject-TDT17/blob/master/predicted_image_samples/Norway_008181.jpg" width="1280" height="720" />
