@@ -5,4 +5,4 @@
 ### Samples
 The following samples were predicted by the model after training for 40 epochs on the first 1/10th of the Norway train-dataset
 
-![Sample: ](/predicted_images/tux.png)
+![Sample: Norway_008321.jpg](/predicted_images/Norway_008321.jpg)
