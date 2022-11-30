@@ -175,7 +175,7 @@ def test_step(model: torch.nn.Module,
                         writer = csv.writer(file)
                         writer.writerow([f, line])
                     if draw_bbs:
-                        draw = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name))  
+                        draw = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p]))  
                         for s in range(len(scores)):
                             if scores[s] > 0.1:     
                                 b = boxes[s].cpu().numpy()
