@@ -18,8 +18,10 @@ import csv
 from PIL import Image, ImageDraw, ImageFont
 
 
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions2.csv"
+font_file = "/usr/share/fonts/liberation-mono/LiberationMono-Italic.ttf"
 def set_parameter_requires_grad(model, feature_extracting):
     if feature_extracting:
         for param in model.parameters():
@@ -176,7 +178,7 @@ def test_step(model: torch.nn.Module,
                         writer.writerow([f, line])
                     if draw_bbs:
                         img = Image.open(r"/cluster/work/andronn/VisualIntelligence/Norway/test/images/{0}".format(f_name[p]))
-                        font = ImageFont.truetype("arial.ttf", 15)
+                        font = ImageFont.truetype(font_file, 15)
                         draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
                             if scores[s] > 0.6:     
