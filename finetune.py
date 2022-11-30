@@ -181,7 +181,7 @@ def test_step(model: torch.nn.Module,
                         font = ImageFont.truetype(font_file, size=40)
                         draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
-                            if scores[s] > 0.6:     
+                            if scores[s] > 0.3:     
                                 b = boxes[s].cpu().numpy()
                                 l = labels[s].cpu().numpy() 
                                 match l:
