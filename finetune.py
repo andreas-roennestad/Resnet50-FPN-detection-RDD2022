@@ -164,7 +164,6 @@ def test_step(model: torch.nn.Module,
                     boxes, labels, scores = predictions[p]['boxes'], predictions[p]['labels'], predictions[p]['scores']
                     line = ""
                     for s in range(len(scores)):
-                        print(scores[s])
                         #print(scores[s])
                         if scores[s] > 0.7:     
                             b = boxes[s].cpu().numpy()
