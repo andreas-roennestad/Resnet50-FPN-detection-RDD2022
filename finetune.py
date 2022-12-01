@@ -166,7 +166,7 @@ def test_step(model: torch.nn.Module,
                     
                     for s in range(len(scores)):
                         #print(scores[s])
-                        if scores[s] > 0.3:     
+                        if scores[s] > 0.5:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
@@ -180,7 +180,7 @@ def test_step(model: torch.nn.Module,
                         font = ImageFont.truetype(font_file, size=40)
                         draw = ImageDraw.Draw(img)
                         for s in range(len(scores)):
-                            if scores[s] > 0.3:     
+                            if scores[s] > 0.5:     
                                 b = boxes[s].cpu().numpy()
                                 l = labels[s].cpu().numpy() 
                                 match l:
@@ -274,7 +274,7 @@ def test(model: torch.nn.Module,
             dataloader=test_dataloader,
             loss_fn=loss_fn,
             device=device,
-            draw_bbs=True)
+            draw_bbs=False)
 
         # Print out what's happening
         print(
