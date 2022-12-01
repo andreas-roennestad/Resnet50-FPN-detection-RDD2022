@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions4.csv"
+predictions_file = "/cluster/work/andronn/VisualIntelligence/predictions5.csv"
 font_file = "/usr/share/fonts/liberation-mono/LiberationMono-Italic.ttf"
 def set_parameter_requires_grad(model, feature_extracting):
     if feature_extracting:
