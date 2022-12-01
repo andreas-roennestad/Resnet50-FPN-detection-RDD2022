@@ -166,7 +166,7 @@ def test_step(model: torch.nn.Module,
                     
                     for s in range(len(scores)):
                         #print(scores[s])
-                        if scores[s] > 0.7:     
+                        if scores[s] > 0.3:     
                             b = boxes[s].cpu().numpy()
                             l = labels[s].cpu().numpy()
                             line += str(l) + ' '
@@ -274,7 +274,7 @@ def test(model: torch.nn.Module,
             dataloader=test_dataloader,
             loss_fn=loss_fn,
             device=device,
-            draw_bbs=False)
+            draw_bbs=True)
 
         # Print out what's happening
         print(
