@@ -7,10 +7,7 @@ try:
 except ImportError:
     from xml.etree.ElementTree import parse as ET_parse
 from typing import Any, Callable, Dict, Optional, Tuple
-import numpy as np
 from PIL import Image
-from torch.nn.utils.rnn import pad_sequence
-import itertools
 import torch
 
 
@@ -26,17 +23,18 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         transforms: Optional[Callable] = None,
     ):
         super().__init__(root, transforms, transform, target_transform) 
+
+        # Acquire all filenames to use for access in dataloader
         self.image_set = image_set
         imgs_dir = os.path.join(root, image_set,"images")
-
         file_names_imgs = [os.path.join(imgs_dir, file) for file in sorted(os.listdir(imgs_dir))]
         self.images = file_names_imgs
         self.images_filenames = [os.path.join(file) for file in sorted(os.listdir(imgs_dir))]
         if image_set=='train':
+            # Only acquire annotations if in training
             targets_dir = os.path.join(root, image_set,"annotations","xmls")
             file_names_targets = [os.path.join(targets_dir, file) for file in sorted(os.listdir(targets_dir))]
             self.targets = file_names_targets
-
 
         if image_set=='train':
             assert len(self.images) == len(self.targets)
@@ -78,6 +76,8 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         return len(self.images) 
 
     def collate_fn(self, batch): 
+        """ Collate_fn for manual batching of images that may be of
+        varying sizes  """ 
         if self.image_set=='train':
             data = [item[0] for item in batch]
             target = [item[1] for item in batch]
@@ -89,6 +89,12 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
             return [data, name]
 
     def parse_dict(self, xml_out_dict: dict) -> dict[str, Any]:
+        """
+        Args:
+            xml_out_dict: resulting dict from processing xml-file with parse_xml
+        Returns:
+            Dict representation of xml object with relevant data from xml
+        """
         in_dict = xml_out_dict['annotation']
         out_dict = {'boxes': [], 'labels': [], 'image_id': []}
         
@@ -123,6 +129,7 @@ class RoadCracksDetection(torchvision.datasets.VisionDataset):
         return out_dict
     @staticmethod
     def parse_xml(node: ET_Element) -> Dict[str, Any]:
+        """ Parse xml file and return dict-representation """
         xml_dict: Dict[str, Any] = {}
         children = list(node)
         if children:

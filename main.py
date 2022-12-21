@@ -1,17 +1,13 @@
 
 import torch
-import torch.nn as nn
 import torch.optim as optim
 import torchvision
-from torchvision import models, transforms
-from finetune import set_parameter_requires_grad, train, test
-from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_V2_Weights
+from torchvision import models
+from finetune import train
+from torchvision.models.detection import FasterRCNN_ResNet50_FPN_V2_Weights
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from load_dataset import RoadCracksDetection
-from dataloader import create_dataloaders
 from torch.utils.data import Subset
-import pickle
-import os
 
 
 print("PyTorch Version: ",torch.__version__)
@@ -36,11 +32,10 @@ num_epochs = 38
 #   when True we only update the reshaped layer params
 feature_extract = True
 
+# Initialize pretrained model with weights frozen for untrainable layers
 model_ft = models.detection.fasterrcnn_resnet50_fpn_v2(weights=FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT, trainable_backbone_layers=3)
 
 print("Transforms: ", FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms())
-
-#set_parameter_requires_grad(model_ft, feature_extract)      
 
 num_ftrs = model_ft.roi_heads.box_predictor.bbox_pred.in_features
 model_ft.roi_heads.box_predictor = FastRCNNPredictor(num_ftrs, num_classes)
@@ -53,17 +48,13 @@ data_transforms = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT.transforms()
 
 dataset = RoadCracksDetection(root_dir, 'train', transforms=data_transforms)
 s_dataset = Subset(dataset, indices=range(0, len(dataset)))
-#s_dataset_test = Subset(dataset, indices=range(len(dataset)//20, len(dataset)//20))
 print("Length training data: ", len(s_dataset))
-#print("Length test data: ", len(s_dataset_test))
 
 
-# Create training and validation dataloaders
+# Create dataloaders
 dataloader = torch.utils.data.DataLoader(s_dataset, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
-#dataloader_test = torch.utils.data.DataLoader(s_dataset_test, batch_size=batch_size, shuffle=True, num_workers=4, collate_fn=dataset.collate_fn)
 
 print("Len dataloader training: ", len(dataloader))
-#print("Len dataloader test: ", len(dataloader_test))
 
 # Detect if we have a GPU available
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
@@ -72,11 +63,7 @@ print(device)
 # Send the model to GPU
 model_ft.to(device)
 
-# Gather the parameters to be optimized/updated in this run. If we are
-#  finetuning we will be updating all parameters. However, if we are
-#  doing feature extract method, we will only update the parameters
-#  that we have just initialized, i.e. the parameters with requires_grad
-#  is True.
+# Gather the parameters to be optimized/updated in this run
 params_to_update = model_ft.parameters()
 print("Params to learn:")
 if feature_extract:
@@ -90,10 +77,8 @@ else:
         if param.requires_grad == True:
             print("\t",name)
 
-# Observe that all parameters are being optimized
+# Using SGD as optimizer
 optimizer_ft = optim.SGD(params_to_update, lr=0.001, momentum=0.9, weight_decay=0.0005)
-loss_fn = nn.CrossEntropyLoss()
-
 
 torch.manual_seed(42)
 torch.cuda.manual_seed(42)
@@ -102,19 +87,16 @@ torch.cuda.manual_seed(42)
 from timeit import default_timer as timer 
 start_time = timer()
 
-# Setup training and save the results
+# Train
 results = train(model=model_ft,
                        train_dataloader=dataloader,
                        test_dataloader=None,
                        optimizer=optimizer_ft,
-                       loss_fn=loss_fn,
                        epochs=num_epochs,
                        device=device, 
                        test_model=False,
                        )
 
-# Train and evaluate
-#model_ft, hist = train_model(model_ft, dataloader, loss_fn, optimizer_ft, num_epochs=num_epochs)
 
 end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
