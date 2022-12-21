@@ -1,4 +1,4 @@
-## Mini Project(TDT17): Predicting road damage on the RDD2022 dataset using a fine-tuned Resnet-50 FPN backbone with pre-trained weights in PyTorch
+## Project (TDT17): Predicting road damage on the RDD2022 dataset using a fine-tuned Resnet-50 FPN backbone with pre-trained weights in PyTorch
 
 ### Overview
 This project aims to fine-tune a PyTorch object detector for the purpose of detecting road damage in the RDD2022 dataset, with the goal of participating in the [Crowdsensing-based Road Damage Detection Challenge (CRDDC2022)](https://crddc2022.sekilab.global/). The RDD2022 dataset contains images of roads captured from vehicles, with labels for various types of road damage including longitudinal cracks (D00), transverse cracks (D10), alligator cracks (D20), and potholes (D40). The model used for this project is a fine-tuned [Resnet-50 FPN backbone with pre-trained weights](https://pytorch.org/vision/main/models/generated/torchvision.models.detection.fasterrcnn_resnet50_fpn_v2.html). This project was completed as a basis for evaluation in the course TDT17 - Visual Intelligence at the Norwegian University of Science and Technology by Andreas Rønnestad.
